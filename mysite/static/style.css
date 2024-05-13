@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+.container {
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: right;
+    padding: 20px;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.url-input {
+    width: 25%; /* URL 입력 바의 너비를 조정합니다. */
+    height: 15px; /* URL 입력 바의 높이를 조정합니다. */
+    padding: 5px; /* 내부의 상하좌우 패딩을 추가하여 텍스트 입력 시 여백을 제공합니다. */
+    margin: 20px 0; /* 상하 마진을 추가하여 주변 요소와의 간격을 조정합니다. */
+    font-size: 16px; /* 입력 텍스트의 크기를 조정합니다. */
+  }
+
+button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;       /*버튼크기 수정*/
+    cursor: pointer;
+}
+
+.text-button {
+    background: none;
+    color: black;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+}
+.text-button:visited{
+    color: #000;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.main .service-description h1, .main .service-description p {
+    text-align: center;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.footer-right button {
+    margin-left: 10px;
+}
+
+/* 드롭다운 버튼 스타일링 */
+.dropbtn {
+    background-color: #4CAF50; /* 배경색 */
+    color: white; /* 글자색 */
+    padding: 16px; /* 패딩 */
+    font-size: 16px; /* 글자 크기 */
+    border: none; /* 테두리 없음 */
+    cursor: pointer; /* 커서 포인터 */
+  }
+  
+  /* 드롭다운 메뉴의 컨테이너 */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* 드롭다운 내용 */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9; /* 배경색 */
+    min-width: 160px; /* 최소 너비 */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* 그림자 */
+    z-index: 1;
+  }
+  
+  /* 드롭다운 링크 스타일링 */
+  .dropdown-content a {
+    color: black; /* 글자색 */
+    padding: 12px 16px; /* 패딩 */
+    text-decoration: none; /* 밑줄 없앰 */
+    display: block;
+  }
+  
+  /* 드롭다운 항목에 마우스를 올렸을 때의 스타일 */
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  /* 드롭다운 버튼에 마우스를 올렸을 때 드롭다운 내용을 보여줌 */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* 버튼에 마우스를 올렸을 때의 스타일 */
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41; /* 배경색 변경 */
+  }
