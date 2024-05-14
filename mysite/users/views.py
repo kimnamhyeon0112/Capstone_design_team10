@@ -11,4 +11,7 @@ def info(request):
 
 def history(request):
   return render(request, 'history.html', {})
+
+def findPW(request):
+  return render(request, 'findPW.html', {})
 # Create your views here.

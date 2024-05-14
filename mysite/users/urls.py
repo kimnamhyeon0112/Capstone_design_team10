@@ -6,4 +6,5 @@ urlpatterns = [
   path('signup', views.signup, name="signup"),
   path('info', views.info, name="info"),
   path('history', views.history, name="history"),
+  path('findPW', views.findPW, name="findPW")
 ]

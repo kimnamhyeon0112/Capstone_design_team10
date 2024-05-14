@@ -2,11 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>메인 페이지</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'subpage_style.css' %}">
 </head>
 <body>
     <header>
+        <div class="header-logo login-page-logo">
+            <a href="/">
+                <img src="{% static 'logo-small.png' %}" alt="Logo">
+            </a>
+        </div>
         <nav>
             <ul>
                 <li>
@@ -24,23 +29,24 @@
             </ul>
         </nav>
     </header>
-    {%comment%}<main>
-        <div class="container">
-            <div class="logo">
-                <img src="{% static 'logo.png' %}" alt="Logo">
+    <main>
+        <div class="login-container">
+            <h2>로그인</h2>
+            <div class="form-item">
+                <input type="email" placeholder="이메일" required>
             </div>
-        <div class="text-center">
-            <h1>당신의 약관분석 서비스, 지우개</h1>
-            <p style="text-align: center; color: grey;">분석할 약관의 주소를 입력하세요</p>
+            <div class="form-item">
+                <input type="password" placeholder="비밀번호" required>
+            </div>
+            <div class="form-item">
+                <button class="login-button">로그인</button>
+            </div>
+            <div class="form-item">
+                <a href="#" class="text-button">회원가입</a>
+                <a href="#" class="text-button">비밀번호 찾기</a>
+            </div>
         </div>
-        <div class="form-center">
-            <form>
-                <input type="text" placeholder="URL을 입력하세요" class="url-input">
-                <button type="submit">분석</button>
-            </form>
-        </div>
-    </div>               
-    </main>{%endcomment%}
+    </main>
     <footer>
         <div class="footer-left">
             <a href="#" class="text-button">지우개</a>
