@@ -3,11 +3,12 @@
 <html>
 <head>
     <title>메인 페이지</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style-info.css' %}">
 </head>
 <body>
     <header>
         <nav>
+            <a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left: 40px;"></a>
             <ul>
                 <li>
                     <select id="language-select" class="text-button" onchange="changeLanguage()">
@@ -24,23 +25,38 @@
             </ul>
         </nav>
     </header>
-    {%comment%}<main>
-        <div class="container">
-            <div class="logo">
-                <img src="{% static 'logo.png' %}" alt="Logo">
+        <h1 style="margin-left: 80px;">회원정보 및 수정</h1>
+            <div class="info-content">
+                <div class="label-div">
+                <p class="info-label">이름</p>
+                <p class="info-label">닉네임</p>
+                <p class="info-label">이메일</p>
+                <p class="info-label">추가 이메일</p>
+                <p class="info-label">비밀번호</p>
+                <p class="info-label">비밀번호 확인</p>
+                <p class="info-label">연락처</p>
             </div>
-        <div class="text-center">
-            <h1>당신의 약관분석 서비스, 지우개</h1>
-            <p style="text-align: center; color: grey;">분석할 약관의 주소를 입력하세요</p>
+            <div class="textbox-div">
+                <input type="text" id="username" class="textbox"><br>
+                <input type="text" id="nickname" class="textbox"><br>
+                <input type="email" id="email" class="textbox"><br> 
+                <input type="email" id="second-email" class="textbox"><br> 
+                <input type="password" id="password" class="textbox"><br>
+                <input type="password" id="pwd-check" class="textbox"><br>
+                <select id="mobile">
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="016">016</option>
+                    <option value="017">017</option>
+                    <option value="018">018</option>
+                    <option value="019">019</option>
+                </select> -
+                <input type="tel" id="contact" class="tel-textbox"> -
+                <input type="tel" id="contact" class="tel-textbox"><br> 
+                <button type="submit" class="info-button">수정</button>
+            </div>
         </div>
-        <div class="form-center">
-            <form>
-                <input type="text" placeholder="URL을 입력하세요" class="url-input">
-                <button type="submit">분석</button>
-            </form>
-        </div>
-    </div>               
-    </main>{%endcomment%}
+        <hr class="info-border">
     <footer>
         <div class="footer-left">
             <a href="#" class="text-button">지우개</a>
