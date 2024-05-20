@@ -3,10 +3,15 @@
 <html>
 <head>
     <title>메인 페이지</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'subpage_style.css' %}">
 </head>
 <body>
     <header>
+        <div class="header-logo login-page-logo">
+            <a href="/">
+                <img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left:40px;">
+            </a>
+        </div>
         <nav>
             <ul>
                 <li>
@@ -24,7 +29,7 @@
             </ul>
         </nav>
     </header>
-    <main>
+    {% comment %} <main>
         <div class="container">
             <div class="logo">
                 <img src="{% static 'logo.png' %}" alt="Logo">
@@ -36,11 +41,11 @@
         <div class="form-center">
             <form>
                 <input type="text" placeholder="URL을 입력하세요" class="url-input">
-                <button><a href="{% url 'summary' %}">분석</a></button>
+                <button type="submit">분석</button>
             </form>
         </div>
     </div>               
-    </main>
+    </main> {% endcomment %}
     <style>
         footer {
             border-top: 1px solid #CCCCCC; /* 구분선의 두께와 색상을 지정 */
