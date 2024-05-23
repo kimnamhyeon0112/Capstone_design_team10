@@ -4,8 +4,10 @@
 <head>
     <title>메인 페이지</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style-history.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
+    <div class = "container">
     <header>
         <nav>
            <a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left: 40px;"></a>
@@ -57,5 +59,6 @@
             </a>
         </div>
     </footer>
+    </div>
 </body>
 </html>
