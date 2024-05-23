@@ -3,6 +3,17 @@ body {
     margin: 0;
     padding: 0;
     background-color: white;
+    font-size: 1rem;
+}
+
+.container{
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .container {
+      font-size: 1.2rem;
+  }
 }
 
 header nav ul {
@@ -14,6 +25,10 @@ header nav ul {
 header nav ul li {
     display: inline;
     margin-left: 20px;
+}
+
+h1 {
+  font-size : calc(15px + 1.1vw)
 }
 
 button {
@@ -30,6 +45,7 @@ button {
     padding: 5px 10px;
     text-decoration: none;
     font-family: Arial, sans-serif;
+    font-size: calc(10px + 0.4vw);
     cursor: pointer;
 }
 .text-button:visited{
@@ -66,13 +82,13 @@ footer {
   }
 
   .info-label{
-    font-size: 14px;
+    font-size: calc(11px + 0.2vw);
     color: gray;
     margin-bottom: 41px;
   }
 
   .textbox {
-    width: 350px; /* 너비 조정 */
+    width: 60%; /* 너비 조정 */
     padding: 10px; /* 안쪽 여백 */
     margin-left: 40px;
     margin-bottom: 20px;
@@ -83,7 +99,7 @@ footer {
 }
 
 .tel-textbox {
-  width: 96px; /* 너비 조정 */
+  width: 15%; /* 너비 조정 */
   padding: 10px; /* 안쪽 여백 */
   margin-bottom: 20px;
   border: 1px solid #ccc; /* 테두리 스타일과 색상 */
@@ -99,7 +115,7 @@ footer {
 }
 
 .info-button{
-  width: 350px;
+  width: 65%;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc; /* 테두리 스타일과 색상 */
@@ -109,7 +125,7 @@ footer {
 #mobile {
   height: 40px; /* 드롭다운 높이 설정 */
   overflow-y: auto; /* 스크롤바 추가 */
-  width: 107px;
+  width: 20%;
   border: 1px solid #ccc; /* 테두리 스타일과 색상 */
   border-radius: 5px; /* 테두리의 모서리를 둥글게 만듦 */
   margin-left: 40px;
