@@ -33,18 +33,22 @@
         <div class="signin-container">
             <h1>회원가입</h1>
             <div class="form-center">
-                <form class>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <!--
+                    TODO: re-investigate how to apply styling to these.
                     <input type="name" placeholder="이름" required class="input">
-                </form>
-                <form>
                     <input type="email" placeholder="이메일" required class="input">
-                </form>
-                <form>
                     <input type="password" placeholder="패스워드" required class="input">
+                    -->
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+                    <input type="submit" class="login-button">가입하기</input>
                 </form>
             </div>
             <div class="form-item">
-                <button class="login-button">가입하기</button>
+
             </div>
         </div>
     </main>
