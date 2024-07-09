@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 
 # Quick references:
@@ -23,7 +24,35 @@ from django.contrib.auth.models import AbstractUser
 # However it is good practice to create a custom user model for futureproofing
 # (See https://docs.djangoproject.com/en/5.0/topics/auth/customizing/#specifying-a-custom-user-model)
 
+# Django's built-in user model requires user ID, as opposed to what we're trying to do
+# https://tech.serhatteker.com/post/2020-01/email-as-username-django/
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password, **extra):
+        if not email:
+            raise ValueError("Email not set")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, email, password, **extra):
+        extra.setdefault('is_staff', True)
+        extra.setdefault('is_superuser', True)
+        extra.setdefault('is_active', True)
+
+        if extra.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+        return self.create_user(email, password, **extra)
+
 class User(AbstractUser):
+    username = None
+    email = models.EmailField("E-mail address", unique=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    objects = CustomUserManager()
     pass
 
 class Website(models.Model):
