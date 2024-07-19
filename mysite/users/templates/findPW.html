@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>회원가입 페이지</title>
+    <title>비밀번호 찾기 페이지</title>
     <link rel="stylesheet" type="text/css" href="{% static 'subpage_style.css' %}">
 </head>
 <body>
@@ -30,24 +30,21 @@
         </nav>
     </header>
     <main>
-        <div class="signin-container">
-            <h1>회원가입</h1>
+        <div class="login-container">
+            <h1>비밀번호 찾기</h1>
             <div class="form-center">
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <!--
-                    TODO: re-investigate how to apply styling to these.
+                <form>
                     <input type="name" placeholder="이름" required class="input">
+                </form>
+                <form>
                     <input type="email" placeholder="이메일" required class="input">
-                    <input type="password" placeholder="패스워드" required class="input">
-                    -->
-                    <table>
-                        {{ form.as_table }}
-                    </table>
-                    <input type="submit" class="login-button">가입하기</input>
+                </form>
+                <form>
+                    <input type="text" placeholder="연락처" required class="input">
                 </form>
             </div>
             <div class="form-item">
+                <button class="login-button">비밀번호 찾기</button>
             </div>
         </div>
     </main>
@@ -57,7 +54,6 @@
             padding-top: 20px; /* 구분선 위쪽의 공간을 추가 */
         }
     </style>
-    
     <footer>
         <div class="footer-left">
             <a href="#" class="text-button">지우개</a>
