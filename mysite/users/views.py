@@ -1,12 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .forms import RegistrationForm
+from .forms import LoginForm
 
 def login(request):
-  return render(request, 'login.html', {})
+  if request.method == 'POST':
+    form = LoginForm(request.POST)
+    if form.is_valid():
+      email = form.cleaned_data['email']
+      password = form.cleaned_data['password']
+      user = authenticate(request, email=email, password=password)
+      if user is not None:
+        auth_login(request, user)
+        return redirect(reverse('home'))  # 로그인 후 리다이렉트할 URL
+      else:
+        form.add_error(None, "이메일 또는 비밀번호가 잘못되었습니다.")
+  else:
+    form = LoginForm()
+  return render(request, 'login.html', {'form':form})
+
+def logout(request):
+    auth_logout(request)
+    return redirect(reverse('home'))
 
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms#html_forms
 

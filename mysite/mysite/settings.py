@@ -132,3 +132,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # 새로 생성한거
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 세션 만료 설정
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # 캐시 기반 세션을 사용하여 서버 재시작 시 세션 초기화

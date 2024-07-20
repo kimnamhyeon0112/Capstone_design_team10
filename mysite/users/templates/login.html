@@ -33,7 +33,9 @@
         <div class="login-container">
             <h1>로그인</h1>
             <div class="form-center">
-                <form>
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                {% comment %} <form>
                     <input type="email" placeholder="이메일" required class="input">
                 </form>
                 <form>
@@ -42,7 +44,11 @@
             </div>
             <div class="form-item">
                 <button class="login-button">로그인</button>
-            </div>
+            </div> {% endcomment %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" class="login-button">로그인</input>
             <div class="form-item">
                 <a href="{% url 'signup' %}" class="text-button">회원가입</a>
             </div>

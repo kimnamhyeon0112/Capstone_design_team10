@@ -10,6 +10,6 @@ class RegistrationForm(forms.Form):
     # Omitted here for testing purposes.
     # Also something possible is to use something called 'ModelForms' - which automatically creates a form based on existing models
     
-    class LoginForm(forms.Form):
-        email = forms.EmailField(label="이메일 주소", required=True)
-        password = forms.CharField(label="비밀번호", widget=forms.PasswordInput, required=True)
+class LoginForm(forms.Form):
+    email = forms.EmailField(label="이메일 주소", required=True)
+    password = forms.CharField(label="비밀번호", widget=forms.PasswordInput, required=True)

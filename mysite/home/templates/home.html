@@ -20,7 +20,11 @@
                   </li>
                 <li><a href="{% url 'history' %}" class="text-button">분석이력</a></li>
                 <li><a href="{% url 'info' %}" class="text-button">회원 정보</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" class="text-button">로그아웃</a></li>
+                {% else %}
                 <li><a href="{% url 'login' %}" class="text-button">로그인</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
