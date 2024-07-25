@@ -115,8 +115,9 @@ footer {
 }
 
 .info-button{
-  width: 65%;
+  width: 30%;
   padding: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
   border: 1px solid #ccc; /* 테두리 스타일과 색상 */
   border-radius: 5px; /* 테두리의 모서리를 둥글게 만듦 */

@@ -8,10 +8,11 @@ from .models import User
 
 class CustomUserAdmin(UserAdmin):
     model = User
-    list_display = ('email', 'is_staff', 'is_active',)
+    list_display = ('email', 'display_name', 'nickname', 'contact_number','additional_email','is_staff', 'is_active',)
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
+        ('Personal Info', {'fields': ('display_name', 'nickname', 'contact_number', 'additional_email')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (

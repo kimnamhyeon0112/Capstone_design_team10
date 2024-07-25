@@ -4,9 +4,13 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import authenticate, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 
 from .forms import RegistrationForm
 from .forms import LoginForm
+from .forms import UserUpdateForm, CustomPasswordChangeForm
+
 
 def login(request):
   if request.method == 'POST':
@@ -48,7 +52,32 @@ def signup(request):
   return render(request, 'signup.html', context)
 
 def info(request):
-  return render(request, 'info.html', {})
+  if not request.user.is_authenticated:
+        return redirect('login')
+      
+  if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        password_form = CustomPasswordChangeForm(request.user, request.POST)
+        
+        if user_form.is_valid() and password_form.is_valid():
+          user_form.save()
+          user = password_form.save()
+          update_session_auth_hash(request, user)
+          messages.success(request, f'회원 정보가 수정 되었습니다.')
+          return redirect('info')
+        
+        else:
+            messages.error(request, '오류가 발생했습니다. 모든 폼을 올바르게 작성했는지 확인하세요.')
+  else:
+        user_form = UserUpdateForm(instance=request.user) 
+        password_form = CustomPasswordChangeForm(request.user)
+        
+  context = {
+        'user_form': user_form,
+        'password_form': password_form
+    }           
+  
+  return render(request, 'info.html', context)
 
 def history(request):
   return render(request, 'history.html', {})
