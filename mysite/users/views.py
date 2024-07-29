@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import authenticate, logout as auth_logout
@@ -6,10 +6,12 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from urllib.parse import urlparse
 
 from .forms import RegistrationForm
 from .forms import LoginForm
 from .forms import UserUpdateForm, CustomPasswordChangeForm
+from .models import PrivacyPolicy
 
 
 def login(request):
@@ -79,6 +81,4 @@ def info(request):
   
   return render(request, 'info.html', context)
 
-def history(request):
-  return render(request, 'history.html', {})
 # Create your views here.

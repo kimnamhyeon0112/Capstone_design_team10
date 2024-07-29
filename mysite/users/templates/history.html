@@ -26,20 +26,38 @@
                   </li>
                 <li><a href="{% url 'history' %}" class="text-button">분석이력</a></li>
                 <li><a href="{% url 'info' %}" class="text-button">회원 정보</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" class="text-button">로그아웃</a></li>
+                {% else %}
                 <li><a href="{% url 'login' %}" class="text-button">로그인</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
     <div class="history-content">
-        <h1>User 님의 분석 이력</h1>
-        <a href="#" style="text-decoration: none;"><div class="history-box">네이버</div></a>
+        <h1>{{ user.display_name }} 님의 분석 이력</h1>
+        </form>
+            <ul>
+                {% if summaries %}
+                    {% for summary in summaries %}
+                        <li><a href="{% url 'summary_detail' summary.pk %}">{{ summary.site_name }}</a></li>
+                    {% endfor %}
+                {% else %}    
+                    <li>저장된 약관이 없습니다.</li>
+                {% endif %}
+            </ul>
+            <form action="{% url 'delete_policy' %}" method="post" style="margin-top: 20px;">
+                {% csrf_token %}
+                <button type="submit">모든 기록 삭제</button>
+            </form>
+        {% comment %}<a href="#" style="text-decoration: none;"><div class="history-box">네이버</div></a>
         <a href="#" style="text-decoration: none;"><div class="history-box">카카오</div></a>
         <a href="#" style="text-decoration: none;"><div class="history-box">라인</div></a>
         <a href="#" style="text-decoration: none;"><div class="history-box">쿠팡</div></a>
         <a href="#" style="text-decoration: none;"><div class="history-box">배달의민족</div></a>
         <a href="#" style="text-decoration: none;"><div class="history-box">당근마켓</div></a>
         <a href="#" style="text-decoration: none;"><div class="history-box">토스</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">직방</div></a>
+        <a href="#" style="text-decoration: none;"><div class="history-box">직방</div></a>{% endcomment %}
     </div>
     <hr class="history-border">
     <footer>

@@ -61,32 +61,32 @@ class User(AbstractUser):
     objects = CustomUserManager()
     pass
 
-class Website(models.Model):
+'''class Website(models.Model):
     # Name of the website
     name = models.CharField(max_length=255)
     # Link to the privacy policy.
     # Not sure how long of a URL we should allow?
     link = models.CharField(max_length=1024)
-    pass
+    pass'''
 
 class PrivacyPolicy(models.Model):
     # The list of things we need:
-    # Date of publish
-    publish_date = models.DateField("The date of which this privacy policy got published at")
-    # When the policy got summarised?
-    summary_date = models.DateTimeField("The date and time of which this summary was generated at")
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    url = models.URLField(max_length=200, null=True)
+    site_name = models.CharField(max_length=100, blank=True)
+    summary_date = models.DateTimeField(auto_now_add=True)
     # PK of the website - FOREIGN KEY
-    website = models.ForeignKey(Website, on_delete=models.CASCADE)
+    #website = models.ForeignKey(Website, on_delete=models.CASCADE)
     # Full content
-    full_text = models.TextField("Full content of the privacy policy")
+    full_text = models.TextField()
     # Summarised content
-    summary = models.TextField("Summary of the privacy policy")
+    summary = models.TextField(blank=True, null=True)
     pass
 
-class UserHistory(models.Model):
+'''class UserHistory(models.Model):
     # PK of the user- FOREIGN KEY
     # See https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#referencing-the-user-model
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # PK of privacy policy - FOREIGN KEY
     policy = models.ForeignKey(PrivacyPolicy, on_delete=models.CASCADE)
-    pass
+    pass'''

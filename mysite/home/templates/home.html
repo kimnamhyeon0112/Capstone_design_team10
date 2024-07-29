@@ -35,11 +35,17 @@
             </div>
         <div class="text-center">
             <h1>당신의 약관분석 서비스, 지우개</h1>
-            <p style="text-align: center; color: grey;">분석할 약관의 주소를 입력하세요</p>
         </div>
         <div class="form-center">
-            <form>
-                <input type="text" placeholder="URL을 입력하세요" class="url-input">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.url.label_tag }}
+                    {{ form.url }}
+                    <div class="help-text">
+                        {{ form.url.help_text|safe }}
+                </div>
+                {% comment %}<input type="text" placeholder="URL을 입력하세요" class="url-input">{% endcomment %}
                 <button type="submit">분석</button>
             </form>
         </div>
