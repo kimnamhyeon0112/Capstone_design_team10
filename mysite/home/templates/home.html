@@ -38,9 +38,14 @@
             <p style="text-align: center; color: grey;">분석할 약관의 주소를 입력하세요</p>
         </div>
         <div class="form-center">
-            <form>
+            {% comment %} <form>
                 <input type="text" placeholder="URL을 입력하세요" class="url-input">
                 <button><a href="{% url 'summary' %}">분석</a></button>
+            </form> {% endcomment %}
+            <form method="post" action="{% url 'summary' %}">
+                {% csrf_token %}
+                <input type="text" name="url" placeholder="URL을 입력하세요" required>
+                <button type="submit">분석</button>
             </form>
         </div>
     </div>               
