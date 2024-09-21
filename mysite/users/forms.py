@@ -4,9 +4,32 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import password_validation
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms#html_forms
 class RegistrationForm(forms.Form):
-    display_name = forms.CharField(label="사용자 이름",help_text="사용자 이름", required=True)
-    email = forms.EmailField(label="이메일 주소",help_text="이메일 주소. 로그인 시 사용됩니다", required=True)
-    password = forms.CharField(label="새 비밀번호",help_text="비밀번호", widget=forms.PasswordInput, required=True)
+    display_name = forms.CharField(
+        label="사용자 이름", 
+        required=True, 
+        widget=forms.TextInput(attrs={
+            'placeholder': '사용자 이름을 입력하세요'  # 사용자 이름 필드의 placeholder
+        })
+    )
+    email = forms.EmailField(
+        label="이메일 주소", 
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'placeholder': '이메일 주소를 입력하세요'  # 이메일 필드의 placeholder
+        })
+    )
+    password = forms.CharField(
+        label="비밀번호", 
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': '비밀번호를 입력하세요'  # 비밀번호 필드의 placeholder
+        })
+    )
+    
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        # 라벨 뒤의 콜론을 없애기 위한 설정
+        self.label_suffix = ''  # 콜론 제거
 
     # Possible to add validation by overriding clean_<fieldname>()
     # Omitted here for testing purposes.
@@ -16,6 +39,10 @@ class LoginForm(forms.Form):
     email = forms.EmailField(label="이메일 주소", required=True)
     password = forms.CharField(label="비밀번호", widget=forms.PasswordInput, required=True)
     
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        # 라벨 뒤의 콜론을 없애기 위한 설정
+        self.label_suffix = ''  # 콜론 제거
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(label='이메일')
     additional_email = forms.EmailField(label='추가 이메일', required=False)
