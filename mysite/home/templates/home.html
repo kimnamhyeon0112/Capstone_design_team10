@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인 페이지</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
@@ -10,7 +12,7 @@
         <nav>
             <ul>
                 <li>
-                    <select id="language-select" class="text-button" onchange="changeLanguage()">
+                    <select id="language-select" class="select-language" onchange="changeLanguage()">
                         <option value="None" disabled hidden selected>언어</option>
                         <option value="ko">한국어</option>
                         <option value="en">English</option>
@@ -37,7 +39,7 @@
             <h1>당신의 약관분석 서비스, 지우개</h1>
         </div>
         <div class="form-center">
-            <form method="post">
+            <form method="post" class="analysis-form">
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form.url.label_tag }}
@@ -45,8 +47,7 @@
                     <div class="help-text">
                         {{ form.url.help_text|safe }}
                 </div>
-                {% comment %}<input type="text" placeholder="URL을 입력하세요" class="url-input">{% endcomment %}
-                <button type="submit">분석</button>
+                <button type="submit" class="btn-submit">분석</button>
             </form>
         </div>
     </div>               
