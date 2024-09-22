@@ -4,6 +4,19 @@
 <head>
     <title>약관 요약 결과</title>
     <link rel="stylesheet" type="text/css" href="{% static 'subpage_style.css' %}">
+    <style>
+        .summary {
+            text-align: left; /* 왼쪽 정렬 */
+            white-space: pre-line; /* 줄 바꿈을 유지 */
+        }
+        .highlight {
+            color: red; /* 강조 색상 */
+            font-weight: bold; /* 강조 효과 */
+        }
+        .traffic-light {
+            margin-top: 20px; /* 이미지 위쪽 여백 */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -33,11 +46,16 @@
         <div class="container">
             <h1>약관 요약 결과</h1>
             {% if summary %}
-                <pre>{{ summary }}</pre>
+                <div class="summary">{{ summary|safe }}</div>
+                <div class="traffic-light">
+                    <img src="{% static traffic_light %}" alt="신호등" width="601" height="281">
+                </div>
+                <div>
+                    <p>하이라이트된 키워드 개수: {{ highlighted_count }}</p>
+                </div>
             {% elif error %}
                 <p style="color: red;">{{ error }}</p>
             {% endif %}
-            <a href="{% url 'summary' %}">다시 분석하기</a>
         </div>
     </main>
     <style>
