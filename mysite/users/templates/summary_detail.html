@@ -4,6 +4,10 @@
 <head>
     <title>약관 요약 결과</title>
     <link rel="stylesheet" type="text/css" href="{% static 'summary_style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 </head>
 <body>
     <header>
@@ -25,25 +29,31 @@
                   </li>
                 <li><a href="{% url 'history' %}" class="text-button">분석이력</a></li>
                 <li><a href="{% url 'info' %}" class="text-button">회원 정보</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" class="text-button">로그아웃</a></li>
+                {% else %}
                 <li><a href="{% url 'login' %}" class="text-button">로그인</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
-<main class="summary-container">
-    <h1>{{ summary.site_name }} 약관 요약 결과</h1>
-    {% if summary.summary %}
-        <!-- 약관 요약된 텍스트를 <pre> 태그로 출력 -->
-        <pre class="summary-text">{{ summary.summary }}</pre>
-    {% elif error %}
-        <!-- 에러가 있을 경우 빨간색으로 에러 메시지 출력 -->
-        <p class="error-message">{{ error }}</p>
-    {% else %}
-        <!-- 요약된 내용도 에러도 없을 때 기본 메시지 표시 -->
-        <p class="no-summary">아직 요약된 약관이 없습니다.</p>
-    {% endif %}
+<main>
+    <div class="summary-container">
+        <h1>{{ summary.site_name }} 약관 요약 결과</h1>
+        {% if summary.summary %}
+            <!-- 약관 요약된 텍스트를 <pre> 태그로 출력 -->
+            <pre class="summary-text">{{ summary.summary }}</pre>
+        {% elif error %}
+            <!-- 에러가 있을 경우 빨간색으로 에러 메시지 출력 -->
+            <p class="error-message">{{ error }}</p>
+        {% else %}
+            <!-- 요약된 내용도 에러도 없을 때 기본 메시지 표시 -->
+            <p class="no-summary">아직 요약된 약관이 없습니다.</p>
+        {% endif %}
 
-    <!-- 다시 분석하기 버튼 -->
-    <button type="button" class="retry-button" onclick="location.href='{% url 'summary_detail' summary.pk %}'">다시 분석하기</button>
+        <!-- 다시 분석하기 버튼 -->
+        <button type="button" class="retry-button" onclick="location.href='{% url 'summary_detail' summary.pk %}'">다시 분석하기</button>
+    </div>    
 </main>
 <style>
     footer {

@@ -10,10 +10,13 @@
     <meta http-equiv="Expires" content="0">
 </head>
 <body>
-    <div class = "container">
     <header>
+        <div class="header-logo login-page-logo">
+            <a href="/">
+                <img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left:35px; margin-bottom: 50px; margin-top: 5px;">
+            </a>
+        </div>
         <nav>
-           <a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left: 40px;"></a>
             <ul>
                 <li>
                     <select id="language-select" class="text-button" onchange="changeLanguage()">
@@ -34,32 +37,31 @@
             </ul>
         </nav>
     </header>
-    <div class="history-content">
-        <h1>{{ user.display_name }} 님의 분석 이력</h1>
-        </form>
+    <main>
+        <div class="history-content">
+            <h1>{{ user.display_name }} 님의 분석 이력</h1>
             <ul>
                 {% if summaries %}
                     {% for summary in summaries %}
                         <li><a href="{% url 'summary_detail' summary.pk %}">{{ summary.site_name }}</a></li>
                     {% endfor %}
                 {% else %}    
-                    <li>저장된 약관이 없습니다.</li>
+                    <li class="NoData">저장된 약관이 없습니다.</li>
                 {% endif %}
             </ul>
-            <form action="{% url 'delete_policy' %}" method="post" style="margin-top: 20px;">
+            <form action="{% url 'delete_policy' %}" method="post" style="margin-top: 20px;" class="delete-button-form">
                 {% csrf_token %}
-                <button type="submit">모든 기록 삭제</button>
+                <button type="submit" class="delete-button">모든 기록 삭제</button>
             </form>
-        {% comment %}<a href="#" style="text-decoration: none;"><div class="history-box">네이버</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">카카오</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">라인</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">쿠팡</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">배달의민족</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">당근마켓</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">토스</div></a>
-        <a href="#" style="text-decoration: none;"><div class="history-box">직방</div></a>{% endcomment %}
-    </div>
-    <hr class="history-border">
+        </div>
+    </main>
+    <style>
+        footer {
+            border-top: 1px solid #CCCCCC; /* 구분선의 두께와 색상을 지정 */
+            padding-top: 20px; /* 구분선 위쪽의 공간을 추가 */
+            margin-top: 150px;
+        }
+    </style>
     <footer>
         <div class="footer-left">
             <a href="#" class="text-button">지우개</a>
