@@ -10,10 +10,13 @@
     <meta http-equiv="Expires" content="0">
 </head>
 <body>
-    <div class = "container">
     <header>
+        <div class="header-logo login-page-logo">
+            <a href="/">
+                <img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left:35px; margin-bottom: 50px; margin-top: 5px;">
+            </a>
+        </div>
         <nav>
-            <a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left: 40px;"></a>
             <ul>
                 <li>
                     <select id="language-select" class="text-button" onchange="changeLanguage()">
@@ -34,52 +37,53 @@
             </ul>
         </nav>
     </header>
-        <h1 style="margin-left: 80px;">회원정보 및 수정</h1>
+        <main>
             <div class="info-content">
-               {% comment %} <div class="label-div">
-                <p class="info-label">이름</p>
-                <p class="info-label">닉네임</p>
-                <p class="info-label">이메일</p>
-                <p class="info-label">추가 이메일</p>
-                <p class="info-label">비밀번호</p>
-                <p class="info-label">비밀번호 확인</p>
-                <p class="info-label">연락처</p>
-                </div>{% endcomment %}
+                <h1>회원정보 및 수정</h1>
             <div class="textbox-div">
                 <form method="POST">
                     {% csrf_token %}
-                    <fieldset class="form-group">
-                      {{ user_form.display_name.label_tag }} {{ user_form.display_name }}<p>
-                      {{ user_form.email.label_tag }} {{ user_form.email }}<p>
-                      {{ user_form.additional_email.label_tag }} {{ user_form.additional_email }}<p>
-                      {{ user_form.contact_number.label_tag }} {{ user_form.contact_number }}<p>
-                      {{ user_form.nickname.label_tag }} {{ user_form.nickname }}<p>
-                      {{ password_form.as_p }}
-                    </fieldset>
+                    <div class="form-row">
+                        {{ user_form.display_name.label_tag }} {{ user_form.display_name }}
+                    </div>    
+                    <div class="form-row">
+                        {{ user_form.additional_email_local.label_tag }}
+                        <div class="email-input">
+                            {{ user_form.additional_email_local }}
+                            <span class="at-symbol">@</span>
+                            {{ user_form.additional_email_domain }}
+                        </div>
+                    </div> 
+                    <div class="form-row">  
+                        {{ user_form.contact_number1.label_tag }}
+                        <div class="phone-input">
+                            {{ user_form.contact_number1 }}
+                            <span>-</span>
+                            {{ user_form.contact_number2 }}
+                            <span>-</span>
+                            {{ user_form.contact_number3 }}
+                        </div>
+                    </div>    
+                    <div class="form-row">  
+                        {{ user_form.nickname.label_tag }} {{ user_form.nickname }}
+                    </div>
+                    <div class="password-row">    
+                        {{ password_form.as_p }}
+                    </div>                    
                     <div class="form-group">
                       <button class="info-button" type="submit">회원정보 수정</button>
                     </div>
                   </form>
-                {% comment %}<input type="text" id="username" class="textbox"><br>
-                <input type="text" id="nickname" class="textbox"><br>
-                <input type="email" id="email" class="textbox"><br> 
-                <input type="email" id="second-email" class="textbox"><br> 
-                <input type="password" id="password" class="textbox"><br>
-                <input type="password" id="pwd-check" class="textbox"><br>
-                <select id="mobile">
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="016">016</option>
-                    <option value="017">017</option>
-                    <option value="018">018</option>
-                    <option value="019">019</option>
-                </select> -
-                <input type="tel" id="contact" class="tel-textbox"> -
-                <input type="tel" id="contact" class="tel-textbox"><br> 
-                <button type="submit" class="info-button">수정</button>{% endcomment %}
             </div>
         </div>
-        <hr class="info-border">
+    </main>
+    <style>
+        footer {
+            border-top: 1px solid #CCCCCC; /* 구분선의 두께와 색상을 지정 */
+            padding-top: 20px; /* 구분선 위쪽의 공간을 추가 */
+            margin-top: 150px;
+        }
+    </style>
     <footer>
         <div class="footer-left">
             <a href="#" class="text-button">지우개</a>
@@ -100,6 +104,5 @@
             </a>
         </div>
     </footer>
-</div>
 </body>
 </html>
