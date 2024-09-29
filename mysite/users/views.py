@@ -61,14 +61,24 @@ def info(request):
         user_form = UserUpdateForm(request.POST, instance=request.user)
         password_form = CustomPasswordChangeForm(request.user, request.POST)
         
-        if user_form.is_valid() and password_form.is_valid():
-          user_form.save()
-          user = password_form.save()
-          update_session_auth_hash(request, user)
-          messages.success(request, f'회원 정보가 수정 되었습니다.')
-          return redirect('info')
+        # 사용자가 비밀번호를 변경하고자 할 때만 password_form을 처리
+        if user_form.is_valid():
+            if password_form.is_valid():
+                # 비밀번호 필드가 비어있지 않을 때만 비밀번호 변경 처리
+                new_password1 = password_form.cleaned_data.get('new_password1')
+                new_password2 = password_form.cleaned_data.get('new_password2')
+
+                if new_password1 or new_password2:
+                    user = password_form.save()
+                    update_session_auth_hash(request, user)  # 비밀번호 변경 시 세션 갱신
+
+            user_form.save()
+            messages.success(request, '회원 정보가 수정되었습니다.')
+            return redirect('info')
         
         else:
+            print(user_form.errors)  # user_form의 오류 출력
+            print(password_form.errors)  # password_form의 오류 출력
             messages.error(request, '오류가 발생했습니다. 모든 폼을 올바르게 작성했는지 확인하세요.')
   else:
         user_form = UserUpdateForm(instance=request.user) 

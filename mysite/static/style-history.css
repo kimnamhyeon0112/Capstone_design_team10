@@ -75,7 +75,7 @@ cursor: pointer;
     font-size: 36px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -107,6 +107,7 @@ cursor: pointer;
     color: #777;            /* 텍스트 색상 */
     font-size: 16px;
     margin: 20px 0;
+    text-align: center;
 }
 
 .delete-button-form {
