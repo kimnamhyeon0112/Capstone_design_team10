@@ -5,6 +5,16 @@
 <head>
     <title>{% translate "비밀번호 찾기 페이지" %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'subpage_style.css' %}">
+    <script>
+        function changeLanguage()
+        {
+            // since prefix_default_language is set to True in home/urls.py, the pathname will always contain the language code.
+            let lang = document.getElementById("language-select").selectedOptions[0].value;
+            let pathname = window.location.pathname;
+            let pathWithoutLang = pathname.substring(pathname.indexOf('/', 1)  + 1)
+            window.location.assign(`/${lang}${pathWithoutLang}`)
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -21,7 +31,7 @@
                         <option value="ko">한국어</option>
                         <option value="en">English</option>
                         <option value="ja">日本語</option>
-                        <option value="zh">中文</option>
+                        <option value="zh-hans">中文</option>
                     </select>
                   </li>
                 <li><a href="{% url 'history' %}" class="text-button">{% translate "분석이력" %}</a></li>

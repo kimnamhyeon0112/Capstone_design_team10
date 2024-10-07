@@ -10,5 +10,5 @@ urlpatterns = i18n_patterns(
     path('', home),
     path('/', include('home.urls')),
     path('', include('users.urls')),
-    prefix_default_language=False
+    prefix_default_language=True
 )
