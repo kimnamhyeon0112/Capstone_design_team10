@@ -2,27 +2,28 @@ from django import forms
 from .models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import password_validation
+from django.utils.translation import gettext_lazy as _
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms#html_forms
 class RegistrationForm(forms.Form):
     display_name = forms.CharField(
-        label="사용자 이름", 
+        label=_("사용자 이름"), 
         required=True, 
         widget=forms.TextInput(attrs={
-            'placeholder': '사용자 이름을 입력하세요'  # 사용자 이름 필드의 placeholder
+            'placeholder': _('사용자 이름을 입력하세요')  # 사용자 이름 필드의 placeholder
         })
     )
     email = forms.EmailField(
-        label="이메일 주소", 
+        label=_("이메일 주소"), 
         required=True,
         widget=forms.EmailInput(attrs={
-            'placeholder': '이메일 주소를 입력하세요'  # 이메일 필드의 placeholder
+            'placeholder': _('이메일 주소를 입력하세요')  # 이메일 필드의 placeholder
         })
     )
     password = forms.CharField(
-        label="비밀번호", 
+        label=_("비밀번호"), 
         required=True,
         widget=forms.PasswordInput(attrs={
-            'placeholder': '비밀번호를 입력하세요'  # 비밀번호 필드의 placeholder
+            'placeholder': _('비밀번호를 입력하세요')  # 비밀번호 필드의 placeholder
         })
     )
     
@@ -36,26 +37,26 @@ class RegistrationForm(forms.Form):
     # Also something possible is to use something called 'ModelForms' - which automatically creates a form based on existing models
     
 class LoginForm(forms.Form):
-    email = forms.EmailField(label="이메일 주소", required=True)
-    password = forms.CharField(label="비밀번호", widget=forms.PasswordInput, required=True)
+    email = forms.EmailField(label=_("이메일 주소"), required=True)
+    password = forms.CharField(label=_("비밀번호"), widget=forms.PasswordInput, required=True)
     
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
         # 라벨 뒤의 콜론을 없애기 위한 설정
         self.label_suffix = ''  # 콜론 제거
 class UserUpdateForm(forms.ModelForm):
-    additional_email_local = forms.CharField(label='추가 이메일', required=False)
+    additional_email_local = forms.CharField(label=_('추가 이메일'), required=False)
     additional_email_domain = forms.CharField(
         label='', 
         required=False, 
-        widget=forms.TextInput(attrs={'placeholder': '도메인 (예: example.com)'})
+        widget=forms.TextInput(attrs={'placeholder': _('도메인 (예: example.com)')})
     )
-    contact_number1 = forms.CharField(label='연락처', required=False, max_length=3)
+    contact_number1 = forms.CharField(label=_('연락처'), required=False, max_length=3)
     contact_number2 = forms.CharField(label='', max_length=4, required=False)
     contact_number3 = forms.CharField(label='', max_length=4, required=False)
     
-    nickname = forms.CharField(label='닉네임', required=False, max_length=30)
-    display_name = forms.CharField(label='이름', max_length=30)
+    nickname = forms.CharField(label=_('닉네임'), required=False, max_length=30)
+    display_name = forms.CharField(label=_('이름'), max_length=30)
     
 
     class Meta:
@@ -135,9 +136,9 @@ class UserUpdateForm(forms.ModelForm):
 class CustomPasswordChangeForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['old_password'].label = "현재 비밀번호 (필수 입력)"
-        self.fields['new_password1'].label = "새 비밀번호"
-        self.fields['new_password2'].label = "새 비밀번호 확인"        
+        self.fields['old_password'].label = _("현재 비밀번호 (필수 입력)")
+        self.fields['new_password1'].label = _("새 비밀번호")
+        self.fields['new_password2'].label = _("새 비밀번호 확인")
         
         self.fields['new_password1'].required = False
         self.fields['new_password2'].required = False
@@ -159,7 +160,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         
         if new_password1 and new_password2:
             if new_password1 != new_password2:
-                raise forms.ValidationError("비밀번호가 일치하지 않습니다.")
+                raise forms.ValidationError(_("비밀번호가 일치하지 않습니다."))
         return new_password2
     
     def save(self, commit=True):

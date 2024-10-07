@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from urllib.parse import urlparse
+from django.utils.translation import gettext as _
 
 from .forms import RegistrationForm
 from .forms import LoginForm
@@ -25,7 +26,7 @@ def login(request):
         auth_login(request, user)
         return redirect(reverse('home'))  # 로그인 후 리다이렉트할 URL
       else:
-        form.add_error(None, "이메일 또는 비밀번호가 잘못되었습니다.")
+        form.add_error(None, _("이메일 또는 비밀번호가 잘못되었습니다."))
   else:
     form = LoginForm()
   return render(request, 'login.html', {'form':form})
@@ -73,13 +74,13 @@ def info(request):
                     update_session_auth_hash(request, user)  # 비밀번호 변경 시 세션 갱신
 
             user_form.save()
-            messages.success(request, '회원 정보가 수정되었습니다.')
+            messages.success(request, _('회원 정보가 수정되었습니다.'))
             return redirect('info')
         
         else:
             print(user_form.errors)  # user_form의 오류 출력
             print(password_form.errors)  # password_form의 오류 출력
-            messages.error(request, '오류가 발생했습니다. 모든 폼을 올바르게 작성했는지 확인하세요.')
+            messages.error(request, _('오류가 발생했습니다. 모든 폼을 올바르게 작성했는지 확인하세요.'))
   else:
         user_form = UserUpdateForm(instance=request.user) 
         password_form = CustomPasswordChangeForm(request.user)

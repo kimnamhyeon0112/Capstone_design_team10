@@ -1,8 +1,9 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>메인 페이지</title>
+    <title>{% translate "메인 페이지" %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style-history.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -20,38 +21,38 @@
             <ul>
                 <li>
                     <select id="language-select" class="text-button" onchange="changeLanguage()">
-                        <option value="None" disabled hidden selected>언어</option>
+                        <option value="None" disabled hidden selected>{% translate "언어" %}</option>
                         <option value="ko">한국어</option>
                         <option value="en">English</option>
                         <option value="ja">日本語</option>
                         <option value="zh">中文</option>
                     </select>
                   </li>
-                <li><a href="{% url 'history' %}" class="text-button">분석이력</a></li>
-                <li><a href="{% url 'info' %}" class="text-button">회원 정보</a></li>
+                <li><a href="{% url 'history' %}" class="text-button">{% translate "분석이력" %}</a></li>
+                <li><a href="{% url 'info' %}" class="text-button">{% translate "회원 정보" %}</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'logout' %}" class="text-button">로그아웃</a></li>
+                <li><a href="{% url 'logout' %}" class="text-button">{% translate "로그아웃" %}</a></li>
                 {% else %}
-                <li><a href="{% url 'login' %}" class="text-button">로그인</a></li>
+                <li><a href="{% url 'login' %}" class="text-button">{% translate "로그인" %}</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
     <main>
         <div class="history-content">
-            <h1>{{ user.display_name }} 님의 분석 이력</h1>
+            <h1>{% blocktranslate with name=user.display_name %} {{ name }} 님의 분석 이력 {% endblocktranslate %}</h1>
             <ul>
                 {% if summaries %}
                     {% for summary in summaries %}
                         <li><a href="{% url 'summary_detail' summary.pk %}">{{ summary.site_name }}</a></li>
                     {% endfor %}
                 {% else %}    
-                    <li class="NoData">저장된 약관이 없습니다.</li>
+                    <li class="NoData">{% translate "저장된 약관이 없습니다." %}</li>
                 {% endif %}
             </ul>
             <form action="{% url 'delete_policy' %}" method="post" style="margin-top: 20px;" class="delete-button-form">
                 {% csrf_token %}
-                <button type="submit" class="delete-button">모든 기록 삭제</button>
+                <button type="submit" class="delete-button">{% translate "모든 기록 삭제" %}</button>
             </form>
         </div>
     </main>
@@ -64,8 +65,8 @@
     </style>
     <footer>
         <div class="footer-left">
-            <a href="#" class="text-button">지우개</a>
-            <a href="#" class="text-button">개인정보처리방침</a>
+            <a href="#" class="text-button">{% translate "지우개" %}</a>
+            <a href="#" class="text-button">{% translate "개인정보처리방침" %}</a>
         </div>
         <div class="footer-right">
             <a href="https://facebook.com" target="_blank">
