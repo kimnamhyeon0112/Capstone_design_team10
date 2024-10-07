@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -135,3 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 세션 만료 설정
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # 캐시 기반 세션을 사용하여 서버 재시작 시 세션 초기화
+
+LOCALE_PATHS = [
+    "$APPPATH/../locale"
+]
