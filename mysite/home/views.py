@@ -53,40 +53,66 @@ def highlight_keywords(text):
         "이용자 동의 없이",
         "사용자 동의 없이",
         "개인정보를 수집",
-        "제3자 제공",
-        "외국에 제공",
         "국외 이전"
-        "제공",
-        "이용",
-        "보관",
-        "수집",
         "해외 이전",
         "자동 수집",
-        "쿠키",
-        "보관 기간",
-        "삭제 요청 무시",
-        "처리 위탁",
-        "위탁 업체",
+        "법령",
+        "회원탈퇴 시",
+        "회원 탈퇴시",
+        "회원 탈퇴 시",
+        "동의 철회",
+        "파기 절차",
+        "파기절차",
+        "파기 방법",
+        "파기방법",
         "마케팅 활용",
         "개인정보 변경",
-        "정보 공유",
-        "비밀번호 저장",
         "파기 절차",
         "법적 요건",
-        "불법 수집",
-        "민감한 정보",
         "익명 처리",
-        "동의 없이",
         "위치 정보",
-        "유효하지 않은 정보",
-        "책임 회피",
-        "기술적 조치 미비",
         "개인정보 보호 책임자",
-        "교육 미비",
-        "정보 유출",
         "변경 고지",
-        "목적 불분명",
-        "수집 목적",
+        "수집 목적",        
+        "관련 법령에 의해 보존",
+        "법령에서 정한 기간",
+        "보안",
+        "최소한의 개인정보를 수집",
+        "동의",
+        "법령에 따라",
+        "회원탈퇴"
+        "회원 탈퇴",
+        "보유 및 이용기간 경과"
+        "내부 규정",
+        "내부규정",
+        "파기 절차",
+        "다른 용도로 활용되지 않으며",
+        "필요한 경우에만 규정된 범위 내",
+        "이용자의 정보는 안전하게 보관",
+        "동의 없이 제 3자에게 제공되지 않습니다",
+        "동의 없이 제 3자에게 제공되지 않음",
+        "동의 없이 제 3자에게 제공되지 않는다.",
+        "개인정보 보호",
+        "엄격한 교육",
+        "감독을 통해",
+        "이용자 정보 관련 분쟁 발생 시 적극 대응 및 문의 가능",
+        "암호화",
+        "제3자에게 제공되지 않음",
+        "안전 조치",
+        "일정 기간",
+        "개인정보 보관",
+        "개인정보의 파기",
+        "정보 보관이 요구될 경우",
+        "해당 기간 동안",
+        "개인정보 안전하게 보관 후 파기",
+        "개인정보를 안전하게 보관한 후 파기",
+        "원칙적으로 개인정보의 수집 및 이용 목적이 달성",
+        "목적 달성 후",
+        "목적이 달성",
+        "즉시 파기"
+        "보유 및 이용 기간이 종료",
+        "지체없이 파기",
+        "법령에 따라 제공되는 경우를 제외",
         # 추가적인 키워드...
     ]
     
@@ -108,12 +134,12 @@ def summary(request):
         if "오류" not in terms_text:
             summary = summarize_terms(terms_text)
             summary, highlighted_count = highlight_keywords(summary)  # 키워드 강조
-            if highlighted_count > 30:
-                traffic_light = 'red_light.png'
-            elif 10 <= highlighted_count <= 30:
+            if highlighted_count > 10:
+                traffic_light = 'green_light.png'
+            elif 6 <= highlighted_count <= 9:
                 traffic_light = 'yellow_light.png'
             else:
-                traffic_light = 'green_light.png'
+                traffic_light = 'red_light.png'
             return render(request, 'summary.html', {'summary': summary, 'traffic_light': traffic_light, 'highlighted_count': highlighted_count})
         else:
             return render(request, 'summary.html', {'error': terms_text})
