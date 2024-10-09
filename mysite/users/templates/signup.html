@@ -1,37 +1,48 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>회원가입 페이지</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'subpage_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style-signup.css' %}">
+    <script>
+        function changeLanguage()
+        {
+            // since prefix_default_language is set to True in home/urls.py, the pathname will always contain the language code.
+            let lang = document.getElementById("language-select").selectedOptions[0].value;
+            let pathname = window.location.pathname;
+            let pathWithoutLang = pathname.substring(pathname.indexOf('/', 1)  + 1)
+            window.location.assign(`/${lang}${pathWithoutLang}`)
+        }
+    </script>
 </head>
 <body>
     <header>
         <div class="header-logo login-page-logo">
             <a href="/">
-                <img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left:40px;">
+                <img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left:35px; margin-bottom: 50px; margin-top: 5px;">
             </a>
         </div>
         <nav>
             <ul>
                 <li>
                     <select id="language-select" class="text-button" onchange="changeLanguage()">
-                        <option value="None" disabled hidden selected>언어</option>
+                        <option value="None" disabled hidden selected>{% translate "언어" %}</option>
                         <option value="ko">한국어</option>
                         <option value="en">English</option>
                         <option value="ja">日本語</option>
-                        <option value="zh">中文</option>
+                        <option value="zh-hans">中文</option>
                     </select>
                   </li>
-                <li><a href="{% url 'history' %}" class="text-button">분석이력</a></li>
-                <li><a href="{% url 'info' %}" class="text-button">회원 정보</a></li>
-                <li><a href="{% url 'login' %}" class="text-button">로그인</a></li>
+                <li><a href="{% url 'history' %}" class="text-button">{% translate "분석이력" %}</a></li>
+                <li><a href="{% url 'info' %}" class="text-button">{% translate "회원 정보" %}</a></li>
+                <li><a href="{% url 'login' %}" class="text-button">{% translate "로그인" %}</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <div class="signin-container">
-            <h1>회원가입</h1>
+        <div class="signup-container">
+            <h1>{% translate "회원가입" %}</h1>
             <div class="form-center">
                 <form method="post" action="">
                     {% csrf_token %}
@@ -41,23 +52,15 @@
                     <input type="email" placeholder="이메일" required class="input">
                     <input type="password" placeholder="패스워드" required class="input">
                     -->
-                    <table>
+                    <table class= styled-table>
                         {{ form.as_table }}
+                        <tr>
+                            <td colspan="2">
+                                <button type="submit" class="signup-button">{% translate "가입하기" %}</button>
+                            </td>
+                        </tr>        
                     </table>
-                    <input type="submit" class="login-button">가입하기</input>
-
-                {% comment %} <form class>
-                    <input type="name" placeholder="이름" required class="input">
                 </form>
-                <form>
-                    <input type="email" placeholder="이메일" required class="input">
-                </form>
-                <form>
-                    <input type="password" placeholder="패스워드" required class="input"> {% endcomment %}
-                </form>
-            </div>
-            <div class="form-item">
-                {% comment %} <button class="login-button">가입하기</button> {% endcomment %}
             </div>
         </div>
     </main>
@@ -65,13 +68,14 @@
         footer {
             border-top: 1px solid #CCCCCC; /* 구분선의 두께와 색상을 지정 */
             padding-top: 20px; /* 구분선 위쪽의 공간을 추가 */
+            margin-top: 150px;
         }
     </style>
     
     <footer>
         <div class="footer-left">
-            <a href="#" class="text-button">지우개</a>
-            <a href="#" class="text-button">개인정보처리방침</a>
+            <a href="#" class="text-button">{% translate "지우개" %}</a>
+            <a href="#" class="text-button">{% translate "개인정보처리방침" %}</a>
         </div>
         <div class="footer-right">
             <a href="https://facebook.com" target="_blank">

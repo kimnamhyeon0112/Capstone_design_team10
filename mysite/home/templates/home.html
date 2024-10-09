@@ -1,29 +1,42 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>메인 페이지</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% translate "메인 페이지" %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script>
+        function changeLanguage()
+        {
+            // since prefix_default_language is set to True in home/urls.py, the pathname will always contain the language code.
+            let lang = document.getElementById("language-select").selectedOptions[0].value;
+            let pathname = window.location.pathname;
+            let pathWithoutLang = pathname.substring(pathname.indexOf('/', 1)  + 1)
+            window.location.assign(`/${lang}${pathWithoutLang}`)
+        }
+    </script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
                 <li>
-                    <select id="language-select" class="text-button" onchange="changeLanguage()">
-                        <option value="None" disabled hidden selected>언어</option>
+                    <select id="language-select" class="select-language" onchange="changeLanguage()">
+                        <option value="None" disabled hidden selected>{% translate "언어" %}</option>
                         <option value="ko">한국어</option>
                         <option value="en">English</option>
                         <option value="ja">日本語</option>
-                        <option value="zh">中文</option>
+                        <option value="zh-hans">中文</option>
                     </select>
                   </li>
-                <li><a href="{% url 'history' %}" class="text-button">분석이력</a></li>
-                <li><a href="{% url 'info' %}" class="text-button">회원 정보</a></li>
+                <li><a href="{% url 'history' %}" class="text-button">{% translate "분석이력" %}</a></li>
+                <li><a href="{% url 'info' %}" class="text-button">{% translate "회원 정보" %}</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'logout' %}" class="text-button">로그아웃</a></li>
+                <li><a href="{% url 'logout' %}" class="text-button">{% translate "로그아웃" %}</a></li>
                 {% else %}
-                <li><a href="{% url 'login' %}" class="text-button">로그인</a></li>
+                <li><a href="{% url 'login' %}" class="text-button">{% translate "로그인" %}</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -34,32 +47,26 @@
                 <img src="{% static 'logo.png' %}" alt="Logo">
             </div>
         <div class="text-center">
-            <h1>당신의 약관분석 서비스, 지우개</h1>
-            <p style="text-align: center; color: grey;">분석할 약관의 주소를 입력하세요</p>
+            <h1>{% translate "당신의 약관분석 서비스, 지우개" %}</h1>
         </div>
         <div class="form-center">
-            {% comment %} <form>
-                <input type="text" placeholder="URL을 입력하세요" class="url-input">
-                <button><a href="{% url 'summary' %}">분석</a></button>
-            </form> {% endcomment %}
-            <form method="post" action="{% url 'summary' %}">
+            <form method="post" class="analysis-form">
                 {% csrf_token %}
-                <input type="text" name="url" placeholder="URL을 입력하세요" required>
-                <button type="submit">분석</button>
+                <div class="form-group">
+                    {{ form.url.label_tag }}
+                    {{ form.url }}
+                    <div class="help-text">
+                        {{ form.url.help_text|safe }}
+                </div>
+                <button type="submit" class="btn-submit">{% translate "분석" %}</button>
             </form>
         </div>
     </div>               
     </main>
-    <style>
-        footer {
-            border-top: 1px solid #CCCCCC; /* 구분선의 두께와 색상을 지정 */
-            padding-top: 20px; /* 구분선 위쪽의 공간을 추가 */
-        }
-    </style>
     <footer>
         <div class="footer-left">
-            <a href="#" class="text-button">지우개</a>
-            <a href="#" class="text-button">개인정보처리방침</a>
+            <a href="#" class="text-button">{% translate "지우개" %}</a>
+            <a href="#" class="text-button">{% translate "개인정보처리방침" %}</a>
         </div>
         <div class="footer-right">
             <a href="https://facebook.com" target="_blank">

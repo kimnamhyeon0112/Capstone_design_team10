@@ -26,6 +26,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Django's built-in user model requires user ID, as opposed to what we're trying to do
 # https://tech.serhatteker.com/post/2020-01/email-as-username-django/
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, **extra):
         if not email:
@@ -50,37 +51,42 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField("E-mail address", unique=True)
+    display_name = models.CharField('Name', max_length=30, blank=True, null=True)
+    nickname = models.CharField(max_length=30, blank=True)
+    additional_email = models.EmailField('Additional E-mail address', blank=True, null=True)
+    contact_number = models.CharField('Contact Number', max_length=15, blank=True, null=True)
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
     pass
 
-class Website(models.Model):
+'''class Website(models.Model):
     # Name of the website
     name = models.CharField(max_length=255)
     # Link to the privacy policy.
     # Not sure how long of a URL we should allow?
     link = models.CharField(max_length=1024)
-    pass
+    pass'''
 
 class PrivacyPolicy(models.Model):
     # The list of things we need:
-    # Date of publish
-    publish_date = models.DateField("The date of which this privacy policy got published at")
-    # When the policy got summarised?
-    summary_date = models.DateTimeField("The date and time of which this summary was generated at")
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    url = models.URLField(max_length=200, null=True)
+    site_name = models.CharField(max_length=100, blank=True)
+    summary_date = models.DateTimeField(auto_now_add=True)
     # PK of the website - FOREIGN KEY
-    website = models.ForeignKey(Website, on_delete=models.CASCADE)
+    #website = models.ForeignKey(Website, on_delete=models.CASCADE)
     # Full content
-    full_text = models.TextField("Full content of the privacy policy")
+    full_text = models.TextField()
     # Summarised content
-    summary = models.TextField("Summary of the privacy policy")
+    summary = models.TextField(blank=True, null=True)
     pass
 
-class UserHistory(models.Model):
+'''class UserHistory(models.Model):
     # PK of the user- FOREIGN KEY
     # See https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#referencing-the-user-model
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # PK of privacy policy - FOREIGN KEY
     policy = models.ForeignKey(PrivacyPolicy, on_delete=models.CASCADE)
-    pass
+    pass'''

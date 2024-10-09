@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-07 21:18+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\home\forms.py:13
+msgid "http:// 또는 https://로 시작하는 유효한 URL을 입력하세요."
+msgstr "http:// 또는 https://로 시작하는 유효한 URL을 입력하세요."
+
+#: .\home\templates\home.html:8 .\users\templates\history.html:6
+#: .\users\templates\info.html:6
+msgid "메인 페이지"
+msgstr "메인 페이지"
+
+#: .\home\templates\home.html:17 .\users\templates\findPW.html:20
+#: .\users\templates\history.html:24 .\users\templates\info.html:24
+#: .\users\templates\login.html:20 .\users\templates\signup.html:20
+#: .\users\templates\summary_detail.html:24
+msgid "언어"
+msgstr "언어"
+
+#: .\home\templates\home.html:24 .\users\templates\findPW.html:27
+#: .\users\templates\history.html:31 .\users\templates\info.html:31
+#: .\users\templates\login.html:27 .\users\templates\signup.html:27
+#: .\users\templates\summary_detail.html:31
+msgid "분석이력"
+msgstr "분석이력"
+
+#: .\home\templates\home.html:25 .\users\templates\findPW.html:28
+#: .\users\templates\history.html:32 .\users\templates\info.html:32
+#: .\users\templates\login.html:28 .\users\templates\signup.html:28
+#: .\users\templates\summary_detail.html:32
+msgid "회원 정보"
+msgstr "회원 정보"
+
+#: .\home\templates\home.html:27 .\users\templates\history.html:34
+#: .\users\templates\info.html:34 .\users\templates\summary_detail.html:34
+msgid "로그아웃"
+msgstr "로그아웃"
+
+#: .\home\templates\home.html:29 .\users\templates\findPW.html:29
+#: .\users\templates\history.html:36 .\users\templates\info.html:36
+#: .\users\templates\login.html:29 .\users\templates\login.html:35
+#: .\users\templates\login.html:43 .\users\templates\signup.html:29
+#: .\users\templates\summary_detail.html:36
+msgid "로그인"
+msgstr "로그인"
+
+#: .\home\templates\home.html:40
+msgid "당신의 약관분석 서비스, 지우개"
+msgstr "당신의 약관분석 서비스, 지우개"
+
+#: .\home\templates\home.html:51
+msgid "분석"
+msgstr "분석"
+
+#: .\home\templates\home.html:58 .\users\templates\findPW.html:60
+#: .\users\templates\history.html:68 .\users\templates\info.html:90
+#: .\users\templates\login.html:61 .\users\templates\signup.html:67
+#: .\users\templates\summary_detail.html:70
+msgid "지우개"
+msgstr "지우개"
+
+#: .\home\templates\home.html:59 .\users\templates\findPW.html:61
+#: .\users\templates\history.html:69 .\users\templates\info.html:91
+#: .\users\templates\login.html:62 .\users\templates\signup.html:68
+#: .\users\templates\summary_detail.html:71
+msgid "개인정보처리방침"
+msgstr "개인정보처리방침"
+
+#: .\users\forms.py:9
+msgid "사용자 이름"
+msgstr "사용자 이름"
+
+#: .\users\forms.py:12
+msgid "사용자 이름을 입력하세요"
+msgstr "사용자 이름을 입력하세요"
+
+#: .\users\forms.py:16 .\users\forms.py:40
+msgid "이메일 주소"
+msgstr "이메일 주소"
+
+#: .\users\forms.py:19
+msgid "이메일 주소를 입력하세요"
+msgstr "이메일 주소를 입력하세요"
+
+#: .\users\forms.py:23 .\users\forms.py:41
+msgid "비밀번호"
+msgstr "비밀번호"
+
+#: .\users\forms.py:26
+msgid "비밀번호를 입력하세요"
+msgstr "비밀번호를 입력하세요"
+
+#: .\users\forms.py:48
+msgid "추가 이메일"
+msgstr "추가 이메일"
+
+#: .\users\forms.py:52
+msgid "도메인 (예: example.com)"
+msgstr "도메인 (예: example.com)"
+
+#: .\users\forms.py:54 .\users\templates\findPW.html:44
+msgid "연락처"
+msgstr "연락처"
+
+#: .\users\forms.py:58
+msgid "닉네임"
+msgstr "닉네임"
+
+#: .\users\forms.py:59 .\users\templates\findPW.html:38
+msgid "이름"
+msgstr "이름"
+
+#: .\users\forms.py:139
+msgid "현재 비밀번호 (필수 입력)"
+msgstr "현재 비밀번호 (필수 입력)"
+
+#: .\users\forms.py:140
+msgid "새 비밀번호"
+msgstr "새 비밀번호"
+
+#: .\users\forms.py:141
+msgid "새 비밀번호 확인"
+msgstr "새 비밀번호 확인"
+
+#: .\users\forms.py:163
+msgid "비밀번호가 일치하지 않습니다."
+msgstr "비밀번호가 일치하지 않습니다."
+
+#: .\users\templates\findPW.html:6
+msgid "비밀번호 찾기 페이지"
+msgstr "비밀번호 찾기 페이지"
+
+#: .\users\templates\findPW.html:41
+msgid "이메일"
+msgstr "이메일"
+
+#: .\users\templates\findPW.html:48
+msgid "비밀번호 찾기"
+msgstr "비밀번호 찾기"
+
+#: .\users\templates\history.html:43
+#, python-format
+msgid " %(name)s 님의 분석 이력 "
+msgstr " %(name)s 님의 분석 이력 "
+
+#: .\users\templates\history.html:50
+msgid "저장된 약관이 없습니다."
+msgstr "저장된 약관이 없습니다."
+
+#: .\users\templates\history.html:55
+msgid "모든 기록 삭제"
+msgstr "모든 기록 삭제"
+
+#: .\users\templates\info.html:43
+msgid "회원정보 및 수정"
+msgstr "회원정보 및 수정"
+
+#: .\users\templates\info.html:75
+msgid "회원정보 수정"
+msgstr "회원정보 수정"
+
+#: .\users\templates\login.html:48 .\users\templates\signup.html:35
+msgid "회원가입"
+msgstr "회원가입"
+
+#: .\users\templates\signup.html:49
+msgid "가입하기"
+msgstr "가입하기"
+
+#: .\users\templates\summary_detail.html:43
+#, python-format
+msgid " %(site_name)s 약관 요약 결과 "
+msgstr " %(site_name)s 약관 요약 결과 "
+
+#: .\users\templates\summary_detail.html:52
+msgid "아직 요약된 약관이 없습니다."
+msgstr "아직 요약된 약관이 없습니다."
+
+#: .\users\templates\summary_detail.html:56
+msgid "다시 분석하기"
+msgstr "다시 분석하기"
+
+#: .\users\views.py:29
+msgid "이메일 또는 비밀번호가 잘못되었습니다."
+msgstr "이메일 또는 비밀번호가 잘못되었습니다."
+
+#: .\users\views.py:77
+msgid "회원 정보가 수정되었습니다."
+msgstr "회원 정보가 수정되었습니다."
+
+#: .\users\views.py:83
+msgid "오류가 발생했습니다. 모든 폼을 올바르게 작성했는지 확인하세요."
+msgstr "오류가 발생했습니다. 모든 폼을 올바르게 작성했는지 확인하세요."

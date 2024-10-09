@@ -1,12 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import SummaryForm
+from users.models import PrivacyPolicy
+from urllib.parse import urlparse
+from django.http import JsonResponse
 import requests
 from bs4 import BeautifulSoup
 from openai import OpenAI
 from concurrent.futures import ThreadPoolExecutor
 import time
-
-def home(request):
-    return render(request, 'home.html', {})
 
 # OpenAI 클라이언트 설정
 client = OpenAI(api_key='YOUR API KEY')
@@ -53,7 +54,7 @@ def highlight_keywords(text):
         "이용자 동의 없이",
         "사용자 동의 없이",
         "개인정보를 수집",
-        "국외 이전"
+        "국외 이전",
         "해외 이전",
         "자동 수집",
         "법령",
@@ -80,9 +81,9 @@ def highlight_keywords(text):
         "최소한의 개인정보를 수집",
         "동의",
         "법령에 따라",
-        "회원탈퇴"
+        "회원탈퇴",
         "회원 탈퇴",
-        "보유 및 이용기간 경과"
+        "보유 및 이용기간 경과",
         "내부 규정",
         "내부규정",
         "파기 절차",
@@ -109,7 +110,7 @@ def highlight_keywords(text):
         "원칙적으로 개인정보의 수집 및 이용 목적이 달성",
         "목적 달성 후",
         "목적이 달성",
-        "즉시 파기"
+        "즉시 파기",
         "보유 및 이용 기간이 종료",
         "지체없이 파기",
         "법령에 따라 제공되는 경우를 제외",
@@ -124,6 +125,70 @@ def highlight_keywords(text):
             text = text.replace(keyword, f"<span class='highlight'>{keyword}</span>")
 
     return text, highlighted_count
+
+def home(request):
+    if request.method == 'POST':
+        
+        if not request.user.is_authenticated:
+            return redirect('login')
+        
+        form = SummaryForm(request.POST)
+        if form.is_valid():
+            url = form.cleaned_data['url']
+             # URL에서 사이트 이름 추출
+            parsed_url = urlparse(url)
+            site_name = parsed_url.netloc
+
+            terms_text = get_terms_from_url(url)
+            
+            if "오류 발생" not in terms_text:
+                summary = summarize_terms(terms_text)
+               
+                new_policy = PrivacyPolicy.objects.create(
+                    user=request.user,
+                    url=url,
+                    site_name=site_name,
+                    summary=summary
+                )
+                highlighted_summary, highlighted_count = highlight_keywords(summary)  # 키워드 강조
+                if highlighted_count > 10:
+                    traffic_light = 'green_light.png'
+                elif 6 <= highlighted_count <= 9:
+                    traffic_light = 'yellow_light.png'
+                else:
+                    traffic_light = 'red_light.png'
+                return render(request, 'summary_detail.html', {
+                    'summary': new_policy,
+                    'highlighted_summary': highlighted_summary,
+                    'traffic_light': traffic_light,
+                    'highlighted_count': highlighted_count
+                    })
+            else:
+                return render(request, 'summary_detail.html', {'error': terms_text})   
+            
+        else:
+            print("폼 오류:", form.errors)
+    else:
+        form = SummaryForm()
+     
+    return render(request, 'home.html', {'form': form})
+
+def summary_detail(request, pk):
+    summary = get_object_or_404(PrivacyPolicy, pk=pk, user=request.user)
+    return render(request, 'summary_detail.html', {'summary': summary})
+
+def history(request):
+  if not request.user.is_authenticated:
+        return redirect('login')
+    
+  summaries = PrivacyPolicy.objects.filter(user=request.user).order_by('summary_date')
+  return render(request, 'history.html', {'summaries': summaries, 'user': request.user})
+
+def delete_policy(request):
+    if request.method == 'POST':
+        PrivacyPolicy.objects.filter(user=request.user).delete() # 모든 PrivacyPolicy 객체 삭제
+        return redirect('history')  # 삭제 후 'history' 페이지로 리다이렉트
+    return redirect('history')  # POST 요청이 아닌 경우에도 'history' 페이지로 리다이렉트
 
 
 def summary(request):
