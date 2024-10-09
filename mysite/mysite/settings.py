@@ -140,3 +140,11 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # 캐시 기반 세�
 LOCALE_PATHS = [
     "$APPPATH/../locale"
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+# NOTE: You need to allow "Access to less secure apps" in your Google account: https://myaccount.google.com/u/2/lesssecureapps
+EMAIL_HOST_USER = "<YOUR GMAIL ADDRESS>"
+EMAIL_HOST_PASSWORD = "<YOUR GMAIL PASSWORD>"
+EMAIL_USE_TLS = True
