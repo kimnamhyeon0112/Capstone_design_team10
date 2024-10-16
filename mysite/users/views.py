@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from urllib.parse import urlparse
+from django.utils.translation import gettext as _
 
 from .forms import RegistrationForm
 from .forms import LoginForm
@@ -90,5 +91,8 @@ def info(request):
     }           
   
   return render(request, 'info.html', context)
+
+def findPW(request):
+  return render(request, 'findPW.html', {})
 
 # Create your views here.

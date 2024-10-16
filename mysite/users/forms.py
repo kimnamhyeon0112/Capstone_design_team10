@@ -2,6 +2,7 @@ from django import forms
 from .models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import password_validation
+from django.utils.translation import gettext_lazy as _
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms#html_forms
 class RegistrationForm(forms.Form):
     display_name = forms.CharField(

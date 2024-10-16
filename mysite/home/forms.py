@@ -1,5 +1,6 @@
 from django import forms
 from users.models import PrivacyPolicy
+from django.utils.translation import gettext_lazy as _
 
 class SummaryForm(forms.ModelForm):
     class Meta:
