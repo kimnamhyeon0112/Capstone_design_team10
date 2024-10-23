@@ -3,14 +3,44 @@ from .forms import SummaryForm
 from users.models import PrivacyPolicy
 from urllib.parse import urlparse
 from django.http import JsonResponse
-import requests
+import requests, uuid, json
 from bs4 import BeautifulSoup
 from openai import OpenAI
 from concurrent.futures import ThreadPoolExecutor
 import time
+from django.utils.translation import get_language_from_request
 
 # OpenAI 클라이언트 설정
-client = OpenAI(api_key='YOUR API KEY')
+client = OpenAI(api_key='[REDACTED]')
+translator_key = "[REDACTED]"
+
+# Sample code provided by Azure
+def translate_summary(summary: str, lang: str):
+    endpoint = "https://api.cognitive.microsofttranslator.com"
+
+    path = '/translate'
+    constructed_url = endpoint + path
+
+    params = {
+        'api-version': '3.0',
+        'to': [lang],
+        'textType': 'html'
+    }
+
+    headers = {
+        'Ocp-Apim-Subscription-Key': translator_key,
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
+
+    body = [{
+        'text': summary
+    }]
+
+    request = requests.post(constructed_url, params=params, headers=headers, json=body)
+    response = request.json()
+
+    return response[0]['translations'][0]['text']
 
 def get_terms_from_url(url):
     try:
@@ -157,6 +187,9 @@ def home(request):
                     traffic_light = 'yellow_light.png'
                 else:
                     traffic_light = 'red_light.png'
+                language_code = get_language_from_request(request, check_path=True)
+                if language_code != 'ko':
+                    highlighted_summary = translate_summary(highlighted_summary, language_code)
                 return render(request, 'summary_detail.html', {
                     'summary': new_policy,
                     'highlighted_summary': highlighted_summary,
