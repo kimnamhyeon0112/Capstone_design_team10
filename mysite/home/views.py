@@ -183,6 +183,8 @@ def summary_detail(request, pk):
     # 개인정보 처리방침을 가져옵니다 (summary)
     summary = get_object_or_404(PrivacyPolicy, pk=pk, user=request.user)
     
+    summary.update_visit()  # 방문 시간 업데이트
+    
     highlighted_summary, highlighted_count = highlight_keywords(summary.summary)
     
     # 트래픽 라이트 이미지 경로 설정
@@ -206,12 +208,38 @@ def history(request):
   if not request.user.is_authenticated:
         return redirect('login')
     
-  summaries = PrivacyPolicy.objects.filter(user=request.user).order_by('summary_date')
-  return render(request, 'history.html', {'summaries': summaries, 'user': request.user})
+  show_checked_only = request.GET.get('show_checked_only', 'false') == 'true'
+  show_unchecked_only = request.GET.get('show_unchecked_only', 'false') == 'true'
+  
+  # 중복을 제거한 최신 항목 가져오기
+  latest_entries = PrivacyPolicy.objects.filter(user=request.user).order_by('url', '-summary_date').distinct('url')
+  
+  if show_checked_only:
+        summaries = latest_entries.filter(is_checked=True)   # 가입한 사이트만 표시
+  elif show_unchecked_only:
+        summaries = latest_entries.filter(is_checked=False)  # 가입하지 않은 사이트만 표시
+  else:
+        summaries = latest_entries  # 모든 항목 표시      
+        
+  return render(request, 'history.html', {'summaries': summaries, 'user': request.user, 'show_checked_only': show_checked_only, 'show_unchecked_only': show_unchecked_only})
 
 def delete_policy(request):
     if request.method == 'POST':
         PrivacyPolicy.objects.filter(user=request.user).delete() # 모든 PrivacyPolicy 객체 삭제
         return redirect('history')  # 삭제 후 'history' 페이지로 리다이렉트
     return redirect('history')  # POST 요청이 아닌 경우에도 'history' 페이지로 리다이렉트
+
+def update_check_status(request):
+    if request.method == 'POST':
+        # 체크된 항목의 ID를 가져옴
+        checked_ids = request.POST.getlist('checked_ids')
+
+        # 모든 항목의 is_checked 상태를 False로 초기화
+        PrivacyPolicy.objects.filter(user=request.user).update(is_checked=False)
+
+        # 체크된 항목은 is_checked를 True로 설정
+        PrivacyPolicy.objects.filter(pk__in=checked_ids, user=request.user).update(is_checked=True)
+
+    return redirect('history')  # 완료 후 'history' 페이지로 리다이렉트
+       
 

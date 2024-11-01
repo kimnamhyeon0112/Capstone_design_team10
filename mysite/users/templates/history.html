@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+<link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,20 +52,56 @@
     <main>
         <div class="history-content">
             <h1>{% blocktranslate with name=user.display_name %} {{ name }} 님의 분석 이력 {% endblocktranslate %}</h1>
+            <div class="filter-container">
+                <h4>가입 여부</h4>
+                <select id="filter-select" onchange="filterHistory()">
+                    <option value="all" {% if not show_checked_only and not show_unchecked_only %}selected{% endif %}>모든 사이트</option>
+                    <option value="checked" {% if show_checked_only %}selected{% endif %}>가입한 사이트</option>
+                    <option value="unchecked" {% if show_unchecked_only %}selected{% endif %}>가입하지 않은 사이트</option>
+                </select>
+            </div>
+            <form method="post" action="{% url 'update_check_status'%}" class="sign-button-form">
+                {% csrf_token %}
             <ul>
                 {% if summaries %}
                     {% for summary in summaries %}
-                        <li><a href="{% url 'summary_detail' summary.pk %}">{{ summary.site_name }}</a></li>
+                        <li class="list-item">
+                                <input type="checkbox" id="checkbox-{{ summary.pk }}" name="checked_ids" value="{{ summary.pk }}" {% if summary.is_checked %}checked{% endif %} onchange="this.form.submit();">
+                            <label for="checkbox-{{ summary.pk }}" class="custom-checkbox"></label>
+                            <a href="{% url 'summary_detail' summary.pk %}" class="site-link">{{ summary.get_domain }}</a>
+
+                            {% if summary.last_visited %}
+                                <small class="visit-info">⚊ 마지막 방문: {{ summary.last_visited|date:"Y-m-d H:i" }} ⚊</small>
+                            {% else %}
+                                <small class="visit-info">⚊ 방문 기록 없음 ⚊</small>
+                            {% endif %}
+                        </li>
                     {% endfor %}
                 {% else %}    
                     <li class="NoData">{% translate "저장된 약관이 없습니다." %}</li>
                 {% endif %}
             </ul>
-            <form action="{% url 'delete_policy' %}" method="post" style="margin-top: 20px;" class="delete-button-form">
-                {% csrf_token %}
-                <button type="submit" class="delete-button">{% translate "모든 기록 삭제" %}</button>
-            </form>
+        </form>
+        <form action="{% url 'delete_policy' %}" method="post" style="margin-top: 20px;" class="delete-button-form">
+            {% csrf_token %}
+            <button type="submit" class="delete-button">{% translate "모든 기록 삭제" %}</button>
+        </form>
         </div>
+        <script>
+            function filterHistory() {
+                const select = document.getElementById('filter-select');
+                const selectedValue = select.value;
+        
+                // 선택한 값에 따라 페이지 URL 변경
+                if (selectedValue === 'checked') {
+                    window.location.href = "{% url 'history' %}?show_checked_only=true";
+                } else if (selectedValue === 'unchecked') {
+                    window.location.href = "{% url 'history' %}?show_unchecked_only=true";
+                } else {
+                    window.location.href = "{% url 'history' %}";
+                }
+            }
+        </script>
     </main>
     <style>
         footer {
