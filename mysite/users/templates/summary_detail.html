@@ -40,7 +40,7 @@
                         <option value="ja">日本語</option>
                         <option value="zh">中文</option>
                     </select>
-                  </li>
+                </li>
                 <li><a href="{% url 'history' %}" class="text-button">{% translate "분석이력" %}</a></li>
                 <li><a href="{% url 'info' %}" class="text-button">{% translate "회원 정보" %}</a></li>
                 {% if request.user.is_authenticated %}
@@ -56,12 +56,11 @@
         <h1>{% blocktranslate with site_name=summary.site_name %} {{ site_name }} 약관 요약 결과 {% endblocktranslate %}</h1>
         {% if summary.summary %}
             <!-- 약관 요약된 텍스트를 <pre> 태그로 출력 -->
-            <div class="summary-text">{{ highlighted_summary|safe }}</div>
+            <div class="summary-text">{{ summary.summary|safe }}</div>
+            <h2>감성 분석 결과</h2>
+            <p>{{ sentiment_result }}</p> <!-- 감성 분석 결과 표시 -->
             <div class="traffic-light">
                 <img src="{% static traffic_light %}" alt="신호등" width="601" height="281">
-            </div>
-            <div>
-                <p>하이라이트된 키워드 개수: {{ highlighted_count }}</p>
             </div>
         {% elif error %}
             <!-- 에러가 있을 경우 빨간색으로 에러 메시지 출력 -->

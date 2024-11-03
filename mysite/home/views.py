@@ -2,12 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SummaryForm
 from users.models import PrivacyPolicy
 from urllib.parse import urlparse
-from django.http import JsonResponse
 import requests
-from bs4 import BeautifulSoup
 from openai import OpenAI
 from concurrent.futures import ThreadPoolExecutor
-import time
 
 client = OpenAI(api_key='YOUR_API_KEY')  # OpenAI 클라이언트 설정
 
@@ -16,27 +13,29 @@ def get_terms_from_url(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
-        all_text = soup.get_text(separator='\n', strip=True)
-        return all_text
+        return response.text
     except Exception as e:
         return f"오류 발생: {e}"
 
 def summarize_part(part):
-    """약관 텍스트의 각 부분을 요약"""
-    while True:
-        try:
-            response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": f"다음 개인정보 처리 방침을 간단히 요약해 주세요. 핵심 내용만 포함하고, 불필요한 정보는 제외해 주세요. '수집', '이용', '제공', '보관'과 같은 중요한 키워드에 중점을 두고 요약해 주세요.: {part}"}]
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            if 'rate limit reached' in str(e):
-                print("Rate limit reached. 대기 중...")
-                time.sleep(2)
-            else:
-                raise
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "user",
+                    "content": (
+                        f"다음 개인정보 처리 방침을 간단히 요약해 주세요. "
+                        f"핵심 내용만 포함하고, 불필요한 정보는 제외해 주세요. "
+                        f"'수집', '이용', '제공', '보관'과 같은 중요한 키워드에 중점을 두고 요약해 주세요.: {part}"
+                    )
+                }
+            ]
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"Error during summarization: {e}")
+        return None
             
 def summarize_terms(terms_text):
     """약관 텍스트를 분할하고 각각 요약"""
@@ -51,82 +50,23 @@ def summarize_terms(terms_text):
 
     return "\n".join(summaries)
 
-def highlight_keywords(text):
-    keywords = [
-        "이용자 동의 없이",
-        "사용자 동의 없이",
-        "개인정보를 수집",
-        "국외 이전",
-        "해외 이전",
-        "자동 수집",
-        "법령",
-        "회원탈퇴 시",
-        "회원 탈퇴시",
-        "회원 탈퇴 시",
-        "동의 철회",
-        "파기 절차",
-        "파기절차",
-        "파기 방법",
-        "파기방법",
-        "마케팅 활용",
-        "개인정보 변경",
-        "파기 절차",
-        "법적 요건",
-        "익명 처리",
-        "위치 정보",
-        "개인정보 보호 책임자",
-        "변경 고지",
-        "수집 목적",        
-        "관련 법령에 의해 보존",
-        "법령에서 정한 기간",
-        "보안",
-        "최소한의 개인정보를 수집",
-        "동의",
-        "법령에 따라",
-        "회원탈퇴",
-        "회원 탈퇴",
-        "보유 및 이용기간 경과",
-        "내부 규정",
-        "내부규정",
-        "파기 절차",
-        "다른 용도로 활용되지 않으며",
-        "필요한 경우에만 규정된 범위 내",
-        "이용자의 정보는 안전하게 보관",
-        "동의 없이 제 3자에게 제공되지 않습니다",
-        "동의 없이 제 3자에게 제공되지 않음",
-        "동의 없이 제 3자에게 제공되지 않는다.",
-        "개인정보 보호",
-        "엄격한 교육",
-        "감독을 통해",
-        "이용자 정보 관련 분쟁 발생 시 적극 대응 및 문의 가능",
-        "암호화",
-        "제3자에게 제공되지 않음",
-        "안전 조치",
-        "일정 기간",
-        "개인정보 보관",
-        "개인정보의 파기",
-        "정보 보관이 요구될 경우",
-        "해당 기간 동안",
-        "개인정보 안전하게 보관 후 파기",
-        "개인정보를 안전하게 보관한 후 파기",
-        "원칙적으로 개인정보의 수집 및 이용 목적이 달성",
-        "목적 달성 후",
-        "목적이 달성",
-        "즉시 파기",
-        "보유 및 이용 기간이 종료",
-        "지체없이 파기",
-        "법령에 따라 제공되는 경우를 제외",
-        # 추가적인 키워드...
-    ]
-    
-    highlighted_count = 0
-    for keyword in keywords:
-        occurrences = text.count(keyword) 
-        if occurrences > 0:
-            highlighted_count += occurrences
-            text = text.replace(keyword, f"<span class='highlight'>{keyword}</span>")
-
-    return text, highlighted_count
+def analyze_sentiment(text):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "user",
+                    "content": (
+                        f"다음 문장에서 개인정보 침해의 가능성에 대해 안전함 또는 주의 필요 또는 위험함으로 판단해 주세요: {text}"
+                    )
+                }
+            ]
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"Error during sentiment analysis: {e}")
+        return None
 
 def home(request):
     if request.method == 'POST':
@@ -137,40 +77,45 @@ def home(request):
         form = SummaryForm(request.POST)
         if form.is_valid():
             url = form.cleaned_data['url']
-             # URL에서 사이트 이름 추출
             parsed_url = urlparse(url)
             site_name = parsed_url.netloc
 
             terms_text = get_terms_from_url(url)
             
             if "오류 발생" not in terms_text:
-                summary = summarize_terms(terms_text)
+                summary = summarize_terms(terms_text)  # 약관 요약
+                print("Summary:", summary)  # 요약 결과 확인
                 
-                new_policy = PrivacyPolicy.objects.create(
-                    user=request.user,
-                    url=url,
-                    site_name=site_name,
-                    summary=summary
-                )
-                
-                highlighted_summary, highlighted_count = highlight_keywords(summary)  # 키워드 강조
-                if highlighted_count > 10:
-                    traffic_light = 'green_light.png'
-                elif 6 <= highlighted_count <= 9:
-                    traffic_light = 'yellow_light.png'
-                else:
-                    traffic_light = 'red_light.png'
-                    
-                return render(request, 'summary_detail.html', {
-                    'summary': new_policy,
-                    'highlighted_summary': highlighted_summary,
-                    'traffic_light': traffic_light,
-                    'highlighted_count': highlighted_count
+                if summary:  # 요약이 성공적으로 이루어진 경우
+                    # 감성 분석 수행
+                    sentiment_result = analyze_sentiment(summary)
+                    print("Sentiment Result:", sentiment_result)  # 감성 분석 결과 확인
+                    new_policy = PrivacyPolicy.objects.create(
+                        user=request.user,
+                        url=url,
+                        site_name=site_name,
+                        sentiment_result=sentiment_result,
+                        summary=summary
+                    )
+                    # 신호등 결정 로직
+                    if "안전함" in sentiment_result:
+                        traffic_light = 'green_light.png'  # 초록색 신호등
+                    elif "주의 필요" in sentiment_result:
+                        traffic_light = 'yellow_light.png'  # 노란색 신호등
+                    elif "위험함" in sentiment_result:
+                        traffic_light = 'red_light.png'  # 빨간색 신호등
+                    else:
+                        traffic_light = 'default_light.png'  # 기본 신호등 (예: 회색)
+                        
+                    return render(request, 'summary_detail.html', {
+                        'summary': new_policy,
+                        'sentiment_result': sentiment_result,  # 감성 분석 결과 전달
+                        'traffic_light': traffic_light,  # 트래픽 라이트 이미지 경로
                     })
 
             
             else:
-                return render(request, 'summary_detail.html', {'error': terms_text})   
+                return render(request, 'summary_detail.html', {'error': '요약 결과가 없습니다.'})
             
         else:
             print("폼 오류:", form.errors)
@@ -185,22 +130,26 @@ def summary_detail(request, pk):
     
     summary.update_visit()  # 방문 시간 업데이트
     
-    highlighted_summary, highlighted_count = highlight_keywords(summary.summary)
+    sentiment_result = summary.sentiment_result  # 감성 분석 결과
     
-    # 트래픽 라이트 이미지 경로 설정
-    if highlighted_count > 10:
-        traffic_light = 'green_light.png'
-    elif 6 <= highlighted_count <= 9:
-        traffic_light = 'yellow_light.png'
+    # sentiment_result가 None이 아닌 경우에만 로직을 수행
+    if sentiment_result:
+        if "안전함" in sentiment_result:
+            traffic_light = 'green_light.png'
+        elif "주의 필요" in sentiment_result:
+            traffic_light = 'yellow_light.png'
+        elif "위험함" in sentiment_result:
+            traffic_light = 'red_light.png'
+        else:
+            traffic_light = 'default_light.png'
     else:
-        traffic_light = 'red_light.png'
+        traffic_light = 'default_light.png'  # sentiment_result가 없을 경우 기본값 설정
     
     # 템플릿에 데이터를 전달
     return render(request, 'summary_detail.html', {
         'summary': summary,
-        'highlighted_summary': highlighted_summary,
         'traffic_light': traffic_light,
-        'highlighted_count': highlighted_count
+        'sentiment_result': sentiment_result
     })
 
 

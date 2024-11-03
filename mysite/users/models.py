@@ -83,6 +83,7 @@ class PrivacyPolicy(models.Model):
     full_text = models.TextField()
     # Summarised content
     summary = models.TextField(blank=True, null=True)
+    sentiment_result = models.TextField(blank=True, null=True)  # 감성 분석 결과
     last_visited = models.DateTimeField(null=True, blank=True)  # 방문 날짜와 시간을 저장하는 필드
     is_checked = models.BooleanField(default=False)
     
