@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>약관 요약 결과</title>
+    <title>{% translate "약관 요약 결과" %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'summary_style.css' %}">
     <style>
         .summary {
@@ -37,8 +37,6 @@
                         <option value="None" disabled hidden selected>{% translate "언어" %}</option>
                         <option value="ko">한국어</option>
                         <option value="en">English</option>
-                        <option value="ja">日本語</option>
-                        <option value="zh">中文</option>
                     </select>
                 </li>
                 <li><a href="{% url 'history' %}" class="text-button">{% translate "분석이력" %}</a></li>
@@ -56,8 +54,8 @@
         <h1>{% blocktranslate with site_name=summary.site_name %} {{ site_name }} 약관 요약 결과 {% endblocktranslate %}</h1>
         {% if summary.summary %}
             <!-- 약관 요약된 텍스트를 <pre> 태그로 출력 -->
-            <div class="summary-text">{{ summary.summary|safe }}</div>
-            <h2>감성 분석 결과</h2>
+            <div class="summary-text">{{ summary_in_display_language|safe }}</div>
+            <h2>{% translate "감성 분석 결과" %}</h2>
             <p>{{ sentiment_result }}</p> <!-- 감성 분석 결과 표시 -->
             <div class="traffic-light">
                 <img src="{% static traffic_light %}" alt="신호등" width="601" height="281">

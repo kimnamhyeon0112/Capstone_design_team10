@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-07 20:56+0900\n"
+"POT-Creation-Date: 2024-11-06 18:42+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,64 +21,89 @@ msgstr ""
 msgid "http:// 또는 https://로 시작하는 유효한 URL을 입력하세요."
 msgstr "Enter a valid URL starting with http:// or https://."
 
-#: .\home\templates\home.html:7 .\users\templates\history.html:5
-#: .\users\templates\info.html:5
+#: .\home\templates\home.html:8 .\users\templates\history.html:7
+#: .\users\templates\info.html:6
 msgid "메인 페이지"
 msgstr "Main page"
 
-#: .\home\templates\home.html:16 .\users\templates\findPW.html:19
-#: .\users\templates\history.html:23 .\users\templates\info.html:23
-#: .\users\templates\login.html:19 .\users\templates\signup.html:19
-#: .\users\templates\summary_detail.html:23
+#: .\home\templates\home.html:27 .\users\templates\findPW.html:30
+#: .\users\templates\history.html:35 .\users\templates\info.html:34
+#: .\users\templates\login.html:30
+#: .\users\templates\password_reset_done.html:30
+#: .\users\templates\password_reset_form.html:30
+#: .\users\templates\password_reset_sent.html:30
+#: .\users\templates\reset_password.html:30 .\users\templates\signup.html:30
+#: .\users\templates\summary_detail.html:37
 msgid "언어"
 msgstr "Language"
 
-#: .\home\templates\home.html:23 .\users\templates\findPW.html:26
-#: .\users\templates\history.html:30 .\users\templates\info.html:30
-#: .\users\templates\login.html:26 .\users\templates\signup.html:26
-#: .\users\templates\summary_detail.html:30
+#: .\home\templates\home.html:32 .\users\templates\findPW.html:37
+#: .\users\templates\history.html:40 .\users\templates\info.html:39
+#: .\users\templates\login.html:35
+#: .\users\templates\password_reset_done.html:35
+#: .\users\templates\password_reset_form.html:35
+#: .\users\templates\password_reset_sent.html:35
+#: .\users\templates\reset_password.html:35 .\users\templates\signup.html:35
+#: .\users\templates\summary_detail.html:42
 msgid "분석이력"
 msgstr "History"
 
-#: .\home\templates\home.html:24 .\users\templates\findPW.html:27
-#: .\users\templates\history.html:31 .\users\templates\info.html:31
-#: .\users\templates\login.html:27 .\users\templates\signup.html:27
-#: .\users\templates\summary_detail.html:31
+#: .\home\templates\home.html:33 .\users\templates\findPW.html:38
+#: .\users\templates\history.html:41 .\users\templates\info.html:40
+#: .\users\templates\login.html:36
+#: .\users\templates\password_reset_done.html:36
+#: .\users\templates\password_reset_form.html:36
+#: .\users\templates\password_reset_sent.html:36
+#: .\users\templates\reset_password.html:36 .\users\templates\signup.html:36
+#: .\users\templates\summary_detail.html:43
 msgid "회원 정보"
 msgstr "User Info"
 
-#: .\home\templates\home.html:26 .\users\templates\history.html:33
-#: .\users\templates\info.html:33 .\users\templates\summary_detail.html:33
+#: .\home\templates\home.html:35 .\users\templates\history.html:43
+#: .\users\templates\info.html:42 .\users\templates\summary_detail.html:45
 msgid "로그아웃"
 msgstr "Logout"
 
-#: .\home\templates\home.html:28 .\users\templates\findPW.html:28
-#: .\users\templates\history.html:35 .\users\templates\info.html:35
-#: .\users\templates\login.html:28 .\users\templates\login.html:34
-#: .\users\templates\login.html:42 .\users\templates\signup.html:28
-#: .\users\templates\summary_detail.html:35
+#: .\home\templates\home.html:37 .\users\templates\findPW.html:39
+#: .\users\templates\history.html:45 .\users\templates\info.html:44
+#: .\users\templates\login.html:37 .\users\templates\login.html:43
+#: .\users\templates\login.html:51
+#: .\users\templates\password_reset_done.html:37
+#: .\users\templates\password_reset_done.html:47
+#: .\users\templates\password_reset_form.html:37
+#: .\users\templates\password_reset_sent.html:37
+#: .\users\templates\reset_password.html:37 .\users\templates\signup.html:37
+#: .\users\templates\summary_detail.html:47
 msgid "로그인"
 msgstr "Login"
 
-#: .\home\templates\home.html:39
+#: .\home\templates\home.html:48
 msgid "당신의 약관분석 서비스, 지우개"
 msgstr "Your own privacy protector, Eraser"
 
-#: .\home\templates\home.html:50
+#: .\home\templates\home.html:59
 msgid "분석"
 msgstr "Analyze"
 
-#: .\home\templates\home.html:57 .\users\templates\findPW.html:59
-#: .\users\templates\history.html:67 .\users\templates\info.html:89
-#: .\users\templates\login.html:60 .\users\templates\signup.html:66
-#: .\users\templates\summary_detail.html:69
+#: .\home\templates\home.html:66 .\users\templates\findPW.html:70
+#: .\users\templates\history.html:113 .\users\templates\info.html:98
+#: .\users\templates\login.html:70
+#: .\users\templates\password_reset_done.html:59
+#: .\users\templates\password_reset_form.html:66
+#: .\users\templates\password_reset_sent.html:59
+#: .\users\templates\reset_password.html:66 .\users\templates\signup.html:75
+#: .\users\templates\summary_detail.html:86
 msgid "지우개"
 msgstr "Eraser"
 
-#: .\home\templates\home.html:58 .\users\templates\findPW.html:60
-#: .\users\templates\history.html:68 .\users\templates\info.html:90
-#: .\users\templates\login.html:61 .\users\templates\signup.html:67
-#: .\users\templates\summary_detail.html:70
+#: .\home\templates\home.html:67 .\users\templates\findPW.html:71
+#: .\users\templates\history.html:114 .\users\templates\info.html:99
+#: .\users\templates\login.html:71
+#: .\users\templates\password_reset_done.html:60
+#: .\users\templates\password_reset_form.html:67
+#: .\users\templates\password_reset_sent.html:60
+#: .\users\templates\reset_password.html:67 .\users\templates\signup.html:76
+#: .\users\templates\summary_detail.html:87
 msgid "개인정보처리방침"
 msgstr "Privacy Policy"
 
@@ -114,7 +139,7 @@ msgstr "Secondary E-mail"
 msgid "도메인 (예: example.com)"
 msgstr "Address (E.g., example.com)"
 
-#: .\users\forms.py:54 .\users\templates\findPW.html:43
+#: .\users\forms.py:54 .\users\templates\findPW.html:54
 msgid "연락처"
 msgstr "Phone No."
 
@@ -122,7 +147,7 @@ msgstr "Phone No."
 msgid "닉네임"
 msgstr "Nickname"
 
-#: .\users\forms.py:59 .\users\templates\findPW.html:37
+#: .\users\forms.py:59 .\users\templates\findPW.html:48
 msgid "이름"
 msgstr "Name"
 
@@ -142,68 +167,123 @@ msgstr "Confirm new password"
 msgid "비밀번호가 일치하지 않습니다."
 msgstr "The password does not match."
 
-#: .\users\templates\findPW.html:5
+#: .\users\templates\findPW.html:6
 msgid "비밀번호 찾기 페이지"
 msgstr "Find my password"
 
-#: .\users\templates\findPW.html:40
+#: .\users\templates\findPW.html:51
 msgid "이메일"
 msgstr "E-mail"
 
-#: .\users\templates\findPW.html:47
+#: .\users\templates\findPW.html:58 .\users\templates\login.html:57
+#: .\users\templates\password_reset_sent.html:6
+#: .\users\templates\reset_password.html:6
+#: .\users\templates\reset_password.html:43
 msgid "비밀번호 찾기"
 msgstr "Find my password"
 
-#: .\users\templates\history.html:42
+#: .\users\templates\history.html:52
 #, python-format
 msgid " %(name)s 님의 분석 이력 "
 msgstr "History for %(name)s"
 
-#: .\users\templates\history.html:49
+#: .\users\templates\history.html:79
 msgid "저장된 약관이 없습니다."
 msgstr "No previous data."
 
-#: .\users\templates\history.html:54
+#: .\users\templates\history.html:85
 msgid "모든 기록 삭제"
 msgstr "Clear history"
 
-#: .\users\templates\info.html:42
+#: .\users\templates\info.html:51
 msgid "회원정보 및 수정"
 msgstr "Edit profile"
 
-#: .\users\templates\info.html:74
+#: .\users\templates\info.html:83
 msgid "회원정보 수정"
 msgstr "Edit profile"
 
-#: .\users\templates\login.html:47 .\users\templates\signup.html:34
+#: .\users\templates\login.html:56 .\users\templates\signup.html:43
 msgid "회원가입"
 msgstr "Register"
 
-#: .\users\templates\signup.html:48
+#: .\users\templates\password_reset_done.html:6
+#: .\users\templates\password_reset_done.html:43
+#, fuzzy
+#| msgid "비밀번호"
+msgid "비밀번호 설정 완료"
+msgstr "Password"
+
+#: .\users\templates\password_reset_done.html:45
+#, fuzzy
+#| msgid "비밀번호가 일치하지 않습니다."
+msgid "비밀번호가 재설정되었습니다."
+msgstr "The password does not match."
+
+#: .\users\templates\password_reset_form.html:6
+#: .\users\templates\password_reset_form.html:51
+#, fuzzy
+#| msgid "비밀번호"
+msgid "비밀번호 변경"
+msgstr "Password"
+
+#: .\users\templates\password_reset_form.html:43
+#, fuzzy
+#| msgid "비밀번호"
+msgid "비밀번호 설정"
+msgstr "Password"
+
+#: .\users\templates\password_reset_sent.html:43
+msgid "메일 전송 완료"
+msgstr "Request Mail Sent"
+
+#: .\users\templates\password_reset_sent.html:45
+msgid "메일로 비밀번호 재설정을 위한 링크를 전송하였습니다. 메일을 확인해주세요."
+msgstr "A mail containing a link for password reset has been sent. Please check your inbox."
+
+#: .\users\templates\password_reset_sent.html:47
+msgid "홈으로"
+msgstr "Back to Home"
+
+#: .\users\templates\reset_password.html:51
+msgid "확인 메일 전송"
+msgstr "Send Confirmation Mail"
+
+#: .\users\templates\signup.html:57
 msgid "가입하기"
 msgstr "Register"
 
-#: .\users\templates\summary_detail.html:42
+#: .\users\templates\summary_detail.html:6
+#, fuzzy
+#| msgid " %(site_name)s 약관 요약 결과 "
+msgid "약관 요약 결과"
+msgstr "Summary of %(site_name)s"
+
+#: .\users\templates\summary_detail.html:54
 #, python-format
 msgid " %(site_name)s 약관 요약 결과 "
 msgstr "Summary of %(site_name)s"
 
-#: .\users\templates\summary_detail.html:51
+#: .\users\templates\summary_detail.html:58
+msgid "감성 분석 결과"
+msgstr "Sentiment Analysis Result"
+
+#: .\users\templates\summary_detail.html:68
 msgid "아직 요약된 약관이 없습니다."
 msgstr "No previous data."
 
-#: .\users\templates\summary_detail.html:55
+#: .\users\templates\summary_detail.html:72
 msgid "다시 분석하기"
 msgstr "Analyze again"
 
-#: .\users\views.py:29
+#: .\users\views.py:28
 msgid "이메일 또는 비밀번호가 잘못되었습니다."
 msgstr "The e-mail and/or password is incorrect."
 
-#: .\users\views.py:77
+#: .\users\views.py:75
 msgid "회원 정보가 수정되었습니다."
 msgstr "Profile updated."
 
-#: .\users\views.py:83
+#: .\users\views.py:81
 msgid "오류가 발생했습니다. 모든 폼을 올바르게 작성했는지 확인하세요."
 msgstr "An error occurred. Please verify all the boxes are populated correctly."

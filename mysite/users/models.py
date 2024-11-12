@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+from urllib.parse import urlparse
 
 # Quick references:
 # Specifics about PostgreSQL https://docs.djangoproject.com/en/5.0/ref/databases/#postgresql-notes
@@ -81,7 +83,19 @@ class PrivacyPolicy(models.Model):
     full_text = models.TextField()
     # Summarised content
     summary = models.TextField(blank=True, null=True)
-    pass
+    sentiment_result = models.TextField(blank=True, null=True)  # 감성 분석 결과
+    last_visited = models.DateTimeField(null=True, blank=True)  # 방문 날짜와 시간을 저장하는 필드
+    is_checked = models.BooleanField(default=False)
+    
+    def update_visit(self):
+        """ 방문 시 현재 날짜와 시간을 업데이트 """
+        self.last_visited = timezone.now()
+        self.save()
+        
+    def get_domain(self):
+        """ URL에서 도메인 이름만 추출합니다. """
+        parsed_url = urlparse(self.url)
+        return parsed_url.netloc.split('.')[1]
 
 '''class UserHistory(models.Model):
     # PK of the user- FOREIGN KEY

@@ -20,40 +20,18 @@ html, body {
     justify-content: center; /* 세로 방향으로 중앙 정렬 */
   }
 
-  .login-container {
-      text-align: center;
-      flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
-  }
-  
   header nav ul {
-      list-style: none;
-      text-align: right;
-      padding: 25px;
-  }
-  
-  header nav ul li {
-      display: inline;
-      margin-left: 25px;
-  }
-
-  .text-button {
-    background: none;
-    color: black;
-    padding: 5px 10px;
-    text-decoration: none;
-    font-family: Arial, sans-serif;
-    cursor: pointer;
+    list-style: none;
+    text-align: right;
+    padding: 25px;
 }
 
-.text-button:visited{
-    color: #000;
+header nav ul li {
+    display: inline;
+    margin-left: 25px;
 }
 
-.text-button:hover {
-    opacity: 0.6;
-}
-
-.select-language{
+.text-button {
   background: none;
   color: black;
   padding: 5px 10px;
@@ -62,7 +40,28 @@ html, body {
   cursor: pointer;
 }
 
-/* Center the form container */
+.text-button:visited{
+  color: #000;
+}
+
+.text-button:hover {
+  opacity: 0.6;
+}
+
+.select-language{
+background: none;
+color: black;
+padding: 5px 10px;
+text-decoration: none;
+font-family: Arial, sans-serif;
+cursor: pointer;
+}
+
+.PW-container {
+    text-align: center;
+    flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+}
+
 .form-center {
     display: flex;
     justify-content: center;
@@ -86,7 +85,7 @@ html, body {
 .styled-table tr {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;  /* 라벨과 입력 필드 간 간격 */
+    margin-bottom: 10px;  /* 라벨과 입력 필드 간 간격 */
     margin-top: 20px;
     padding: 10px;
     position: relative;
@@ -95,7 +94,7 @@ html, body {
 /* 라벨을 입력 필드 위로 배치하고 굵게 설정 */
 .styled-table label {
     position: absolute;
-    top: -20px;   /* 입력 필드 위로 이동 */
+    top: -10px;   /* 입력 필드 위로 이동 */
     left: 10px;    /* 입력 필드 왼쪽에 붙이기 */
     font-weight: bold;
     font-size: 14px;
@@ -113,14 +112,14 @@ html, body {
 .styled-table textarea{
     width: 100%;
     padding: 10px;
-    margin: 5px 0;
+    margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 /* Style the submit button */
-.login-button {
+.PW-button {
     width: 100%;
     background-color: black;
     color: white;
@@ -134,38 +133,7 @@ html, body {
     transition: background-color 0.3s ease;
 }
 
-.login-button:hover {
-    opacity: 0.6;
-}
-
-/* Style the form-item (signup link) */
-.form-item {
-    margin-top: 15px;
-    text-align: center;
-    margin-bottom: 0px;
-}
-
-.signup-button{
-    color: #007bff;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease;
-    padding-left: 5px;
-    border-left: 1px solid #000;
-}
-
-.findPW-button{
-    color: rgb(61, 61, 61);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease;
-}
-
-.signup-button:hover{
-    opacity: 0.6;
-}
-
-.findPW-button:hover{
+.PW-button:hover {
     opacity: 0.6;
 }
 
