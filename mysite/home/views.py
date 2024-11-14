@@ -50,7 +50,7 @@ def get_terms_from_url(url):
 def summarize_part(part):
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[
                 {
                     "role": "user",
@@ -83,12 +83,12 @@ def summarize_terms(terms_text):
 def analyze_sentiment(text):
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[
                 {
                     "role": "user",
                     "content": (
-                        f"다음 문장에서 개인정보 침해의 가능성에 대해 안전함 또는 주의 필요 또는 위험함으로 판단해 주세요: {text}"
+                        f"다음 문장에서 개인정보 침해의 가능성에 대해 안전함 또는 주의 필요 또는 위험함으로 판단해 주세요. 판단한 이유도 자세히 알려주세요.: {text}"
                     )
                 }
             ]

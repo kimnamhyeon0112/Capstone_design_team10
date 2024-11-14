@@ -18,6 +18,16 @@
             margin-top: 20px; /* 이미지 위쪽 여백 */
         }
     </style>
+    <script>
+        function changeLanguage()
+        {
+            // since prefix_default_language is set to True in home/urls.py, the pathname will always contain the language code.
+            let lang = document.getElementById("language-select").selectedOptions[0].value;
+            let pathname = window.location.pathname;
+            let pathWithoutLang = pathname.substring(pathname.indexOf('/', 1)  + 1)
+            window.location.assign(`/${lang}${pathWithoutLang}`)
+        }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
