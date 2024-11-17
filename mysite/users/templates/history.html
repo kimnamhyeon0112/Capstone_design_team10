@@ -1,0 +1,133 @@
+{% load static %}
+{% load i18n %}
+<link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% translate "메인 페이지" %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style-history.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+        function changeLanguage()
+        {
+            // since prefix_default_language is set to True in home/urls.py, the pathname will always contain the language code.
+            let lang = document.getElementById("language-select").selectedOptions[0].value;
+            let pathname = window.location.pathname;
+            let pathWithoutLang = pathname.substring(pathname.indexOf('/', 1)  + 1)
+            window.location.assign(`/${lang}${pathWithoutLang}`)
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-logo login-page-logo">
+            <a href="/">
+                <img src="{% static 'logo.png' %}" width="100" height="75" style="float: left; margin-left:35px; margin-bottom: 50px; margin-top: 5px;">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <select id="language-select" class="text-button" onchange="changeLanguage()">
+                        <option value="None" disabled hidden selected>{% translate "언어" %}</option>
+                        <option value="ko">한국어</option>
+                        <option value="en">English</option>
+                    </select>
+                  </li>
+                <li><a href="{% url 'history' %}" class="text-button">{% translate "분석이력" %}</a></li>
+                <li><a href="{% url 'info' %}" class="text-button">{% translate "회원 정보" %}</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" class="text-button">{% translate "로그아웃" %}</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}" class="text-button">{% translate "로그인" %}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="history-content">
+            <h1>{% blocktranslate with name=user.display_name %} {{ name }} 님의 분석 이력 {% endblocktranslate %}</h1>
+            <div class="filter-container">
+                <h4>가입 여부</h4>
+                <select id="filter-select" onchange="filterHistory()">
+                    <option value="all" {% if not show_checked_only and not show_unchecked_only %}selected{% endif %}>모든 사이트</option>
+                    <option value="checked" {% if show_checked_only %}selected{% endif %}>가입한 사이트</option>
+                    <option value="unchecked" {% if show_unchecked_only %}selected{% endif %}>가입하지 않은 사이트</option>
+                </select>
+            </div>
+            <form method="post" action="{% url 'update_check_status'%}" class="sign-button-form">
+                {% csrf_token %}
+            <ul>
+                {% if summaries %}
+                    {% for summary in summaries %}
+                        <li class="list-item">
+                                <input type="checkbox" id="checkbox-{{ summary.pk }}" name="checked_ids" value="{{ summary.pk }}" {% if summary.is_checked %}checked{% endif %} onchange="this.form.submit();">
+                            <label for="checkbox-{{ summary.pk }}" class="custom-checkbox"></label>
+                            <a href="{% url 'summary_detail' summary.pk %}" class="site-link">{{ summary.get_domain }}</a>
+
+                            {% if summary.last_visited %}
+                                <small class="visit-info">⚊ 마지막 방문: {{ summary.last_visited|date:"Y-m-d H:i" }} ⚊</small>
+                            {% else %}
+                                <small class="visit-info">⚊ 방문 기록 없음 ⚊</small>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% else %}    
+                    <li class="NoData">{% translate "저장된 약관이 없습니다." %}</li>
+                {% endif %}
+            </ul>
+        </form>
+            <form action="{% url 'delete_policy' %}" method="post" style="margin-top: 20px;" class="delete-button-form">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">{% translate "모든 기록 삭제" %}</button>
+            </form>
+        </div>
+        <script>
+            function filterHistory() {
+                const select = document.getElementById('filter-select');
+                const selectedValue = select.value;
+        
+                // 선택한 값에 따라 페이지 URL 변경
+                if (selectedValue === 'checked') {
+                    window.location.href = "{% url 'history' %}?show_checked_only=true";
+                } else if (selectedValue === 'unchecked') {
+                    window.location.href = "{% url 'history' %}?show_unchecked_only=true";
+                } else {
+                    window.location.href = "{% url 'history' %}";
+                }
+            }
+        </script>
+    </main>
+    <style>
+        footer {
+            border-top: 1px solid #CCCCCC; /* 구분선의 두께와 색상을 지정 */
+            padding-top: 20px; /* 구분선 위쪽의 공간을 추가 */
+            margin-top: 150px;
+        }
+    </style>
+    <footer>
+        <div class="footer-left">
+            <a href="#" class="text-button">{% translate "지우개" %}</a>
+            <a href="#" class="text-button">{% translate "개인정보처리방침" %}</a>
+        </div>
+        <div class="footer-right">
+            <a href="https://facebook.com" target="_blank">
+                <img src="{% static 'facebook.png' %}" alt="Facebook">
+            </a>
+            <a href="https://kr.linkedin.com/" target="_blank">
+                <img src="{% static 'Linkedin.png' %}" alt="LinkedIn">
+            </a>
+            <a href="https://youtube.com/" target="_blank">
+                <img src="{% static 'Youtube.png' %}" alt="Youtube">
+            </a>
+            <a href="https://instagram.com/" target="_blank">
+                <img src="{% static 'Instagram.png' %}" alt="Instagram">
+            </a>
+        </div>
+    </footer>
+    </div>
+</body>
+</html>

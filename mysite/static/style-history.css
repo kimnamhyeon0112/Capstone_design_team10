@@ -1,0 +1,209 @@
+html, body {
+    height: 100%; /* html과 body의 높이를 브라우저 창의 높이와 동일하게 설정 */
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+  }
+  
+  body {
+    display: flex; /* flexbox 레이아웃 사용 */
+    flex-direction: column; /* 세로 방향으로 요소 정렬 */
+    font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+  }
+  
+  main {
+    flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+    display: flex; /* flexbox 레이아웃 사용 */
+    flex-direction: column; /* 세로 방향으로 요소 정렬 */
+    justify-content: center; /* 세로 방향으로 중앙 정렬 */
+  }
+
+header nav ul {
+    list-style: none;
+    text-align: right;
+    padding: 25px;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 25px;
+}
+
+.text-button {
+  background: none;
+  color: black;
+  padding: 5px 10px;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.text-button:visited{
+  color: #000;
+}
+
+.text-button:hover {
+  opacity: 0.6;
+}
+
+.select-language{
+background: none;
+color: black;
+padding: 5px 10px;
+text-decoration: none;
+font-family: Arial, sans-serif;
+cursor: pointer;
+}
+
+/* 메인 컨테이너 스타일 */
+.history-content {
+    max-width: 700px;       /* 최대 너비 */
+    width: 100%;
+    margin: 0 auto;         /* 가운데 정렬 */
+    padding: 20px;          /* 내부 여백 */
+    background-color: #f9f9f9;  /* 배경색 */
+    border-radius: 8px;     /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 그림자 */
+    font-family: Arial, sans-serif; /* 폰트 */
+}
+
+
+/* 제목 스타일 */
+.history-content h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* 리스트 스타일 */
+.history-content ul {
+    list-style-type: none;  /* 기본 리스트 스타일 제거 */
+    padding: 5px;
+}
+
+.history-content ul li {
+    margin-bottom: 25px;  /* 리스트 항목 사이 간격 */
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+.history-content ul li a {
+    font-size: 24px;
+    text-decoration: none;
+    color: #74a899;
+    padding: 10px 35px 10px 15px;
+    margin-left: 5%;
+    border-radius: 4px;
+    display: inline-block; /* 링크 텍스트만 호버 효과를 가지도록 설정 */
+    background-color: #ededed; /* 리스트 항목 배경 */
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+.history-content li a:hover {
+    opacity: 0.6;        /* 호버 시 링크 색상 변경 */
+}
+
+.history-content ul li .visit-info {
+    color: #777;
+    font-size: 14px;
+    margin-left: auto; /* 오른쪽 끝으로 위치 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    margin-right: 5%;
+}
+
+.history-content ul li input[type="checkbox"] {
+    margin-left: 3%;
+    width: 20px; /* 원하는 너비 */
+    height: 20px; /* 원하는 높이 */
+    transform: scale(1.3); /* 크기 배율 조정 */
+    -webkit-transform: scale(1.3); /* 크롬, 사파리 등 웹킷 브라우저용 */
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: #28a745; 
+}
+
+/* 링크에 초록색 점 표시 */
+input[type="checkbox"] + label + .site-link::after {
+    content: ""; /* 빈 내용으로 가상 요소 생성 */
+    position: absolute; /* 절대 위치 */
+    right: 15px; /* 링크 오른쪽 끝에 위치 */
+    top: 50%; /* 수직 가운데 정렬 */
+    transform: translateY(-50%); /* 수직 중앙에 맞추기 */
+    width: 8px;
+    height: 8px;
+    background-color: #28a745;
+    border-radius: 50%;
+    display: none; /* 기본적으로 숨김 */
+}
+
+/* 체크된 상태에서 초록색 점 표시 */
+input[type="checkbox"]:checked + label + .site-link::after {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* 기록이 없을 때 스타일 */
+.NoData {
+    color: #777;            /* 텍스트 색상 */
+    font-size: 16px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝에 요소 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    margin-bottom: 30px; /* 필요한 여백 설정 */
+    margin-right: 3%;
+}
+
+#filter-select {
+    width: 170px; /* 드롭다운 너비 조정 */
+    height: 30px;
+    padding: 5px; /* 드롭다운 내부 여백 */
+    font-size: 14px; /* 글자 크기 조정 */
+    box-sizing: border-box; /* 내부 여백과 테두리가 총 너비에 포함되도록 설정 */
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+.filter-container h4 {
+    color: #686868;
+}
+
+.delete-button-form {     
+    text-align: right;
+    margin-right: 3%;
+        
+}
+
+/* 버튼 스타일 */
+.delete-button {
+    background-color: rgb(60, 61, 61);  /* 빨간색 배경 */
+    color: white;               /* 버튼 텍스트 색상 */
+    padding: 10px 20px;         /* 버튼 패딩 */
+    border: none;               /* 기본 테두리 제거 */
+    border-radius: 4px;         /* 모서리 둥글게 */
+    font-size: 14px;            /* 버튼 텍스트 크기 */
+    cursor: pointer;            /* 커서 포인터로 변경 */  
+    transition: background-color 0.3s ease;
+}
+
+.history-content button:hover {
+    opacity: 0.6;  /* 호버 시 배경색 변경 */
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.footer-right button {
+    margin-left: 10px;
+}
